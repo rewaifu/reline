@@ -18,6 +18,6 @@ class FileWriterNode(Node[FileWriterOptions]):
 
     def process(self, files: List[ImageFile]):
         if len(files) != 1:
-            raise ValueError('Expected 1 image file')
+            raise ValueError('Expected single image file')
 
         return save(files[0].data, self.options.path)

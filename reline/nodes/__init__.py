@@ -3,7 +3,9 @@ from .file_writer import FileWriterNode, FileWriterOptions
 from .folder_reader import FolderReaderNode, FolderReaderOptions
 from .folder_writer import FolderWriterNode, FolderWriterOptions, FileFormat
 from .resize import ResizeNode, ResizeOptions
-from .upscale import UpscaleNode, UpscaleOptions, Tiler
+from .upscale import UpscaleNode, UpscaleOptions
+from .level import LevelNode, LevelOptions
+from .screentone import ScreentoneNode, ScreentoneOptions
 
 from .registry import Registry
 
@@ -15,6 +17,8 @@ INTERNAL_REGISTRY = (
     .set('upscale', UpscaleNode, UpscaleOptions)
     .set('folder_reader', FolderReaderNode, FolderReaderOptions)
     .set('folder_writer', FolderWriterNode, FolderWriterOptions)
+    .set('level', LevelNode, LevelOptions)
+    .set('screentone', ScreentoneNode, ScreentoneOptions)
 )
 
 __all__ = [
@@ -31,6 +35,9 @@ __all__ = [
     'ResizeOptions',
     'UpscaleNode',
     'UpscaleOptions',
-    'Tiler',
+    'LevelNode',
+    'LevelOptions',
+    'ScreentoneNode',
+    'ScreentoneOptions',
     'INTERNAL_REGISTRY',
 ]

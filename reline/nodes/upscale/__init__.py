@@ -1,3 +1,3 @@
-from .node import UpscaleNode, UpscaleOptions, Tiler
+from .node import UpscaleNode, UpscaleOptions
 
-__all__ = ['UpscaleNode', 'UpscaleOptions', 'Tiler']
+__all__ = ['UpscaleNode', 'UpscaleOptions']
