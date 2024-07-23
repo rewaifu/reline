@@ -52,6 +52,6 @@ class ResizeNode(Node[ResizeOptions]):
 
         for file in files:
             h, w = self.calculate_size(*file.data.shape[:2])
-            file.data = resize(file.data, (h, w), self.filter, self.options.gamma_correction)
+            file.data = resize(file.data, (w, h), self.filter, self.options.gamma_correction)
 
         return files
