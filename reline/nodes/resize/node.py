@@ -47,9 +47,6 @@ class ResizeNode(Node[ResizeOptions]):
         return self.options.height, self.options.width
 
     def process(self, files: List[ImageFile]) -> List[ImageFile]:
-        if self.options.width is None and self.options.height is None and self.options.percent is None:
-            raise ValueError('At least one of width, height, or percent must be specified.')
-
         for file in files:
             h, w = self.calculate_size(*file.data.shape[:2])
             file.data = resize(file.data, (w, h), self.filter, self.options.gamma_correction).squeeze()

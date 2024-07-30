@@ -6,6 +6,7 @@ from .resize import ResizeNode, ResizeOptions
 from .upscale import UpscaleNode, UpscaleOptions
 from .level import LevelNode, LevelOptions
 from .screentone import ScreentoneNode, ScreentoneOptions
+from .sharp import SharpNode, SharpOptions
 
 from .registry import Registry
 
@@ -19,6 +20,7 @@ INTERNAL_REGISTRY = (
     .set('folder_writer', FolderWriterNode, FolderWriterOptions)
     .set('level', LevelNode, LevelOptions)
     .set('screentone', ScreentoneNode, ScreentoneOptions)
+    .set('sharp', SharpNode, SharpOptions)
 )
 
 __all__ = [
@@ -39,5 +41,7 @@ __all__ = [
     'LevelOptions',
     'ScreentoneNode',
     'ScreentoneOptions',
+    'SharpNode',
+    'SharpOptions',
     'INTERNAL_REGISTRY',
 ]

@@ -2,12 +2,12 @@ from dataclasses import dataclass
 from typing import Optional, List, Literal
 
 import torch.cuda
-from resselt.utils import AutoTiler, ExactTiler, MaxTiler, NoTiling, upscale_with_tiler
+from resselt.utils import ExactTiler, MaxTiler, NoTiling, upscale_with_tiler
 from resselt import global_registry
 
 from reline.static import Node, NodeOptions, ImageFile
 
-Tiler = Literal['auto', 'exact', 'max', 'no_tiling']
+Tiler = Literal['exact', 'max', 'no_tiling']
 
 
 @dataclass(frozen=True)
@@ -32,8 +32,6 @@ class UpscaleNode(Node[UpscaleOptions]):
 
     def _create_tiler(self):
         match self.options.tiler:
-            case 'auto':
-                return AutoTiler(self.model)
             case 'exact':
                 if self.options.exact_tiler_size is None:
                     raise ValueError('Exact tiler requires `exact_tiler_size` param')
