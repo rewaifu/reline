@@ -7,8 +7,8 @@ from reline.static import Node, NodeOptions, ImageFile
 
 @dataclass(frozen=True)
 class LevelOptions(NodeOptions):
-    low_input: int
-    high_input: int
+    low_input: Optional[int] = 0
+    high_input: Optional[int] = 255
     low_output: Optional[int] = 0
     high_output: Optional[int] = 255
     gamma: Optional[float] = 1.0
