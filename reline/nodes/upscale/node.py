@@ -1,11 +1,13 @@
 from dataclasses import dataclass
 from typing import Optional, List, Literal
 
+import numpy as np
 import torch.cuda
 from resselt.utils import ExactTiler, MaxTiler, NoTiling, upscale_with_tiler
 from resselt import global_registry
-
+from pepeline import cvt_color, CvtType
 from reline.static import Node, NodeOptions, ImageFile
+import logging
 
 Tiler = Literal['exact', 'max', 'no_tiling']
 
@@ -27,8 +29,22 @@ class UpscaleNode(Node[UpscaleOptions]):
 
         state_dict = torch.load(options.model)
         self.model = global_registry.load_from_state_dict(state_dict)
+        self.model_parameters = self.model.parameters()
         self.tiler = self._create_tiler()
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
+    def _img_ch_to_model_ch(self, img: np.ndarray) -> np.ndarray:
+        img_shape = img.shape
+        img = img.squeeze()
+        if self.model_parameters[1] == 3:
+            if len(img_shape) == 2:
+                img = cvt_color(img, CvtType.GRAY2RGB)
+        elif self.model_parameters[1] == 1:
+            if len(img_shape) == 3:
+                img = cvt_color(img, CvtType.RGB2GrayBt2020)
+        else:
+            logging.error("model format is not currently supported")
+        return img
 
     def _create_tiler(self):
         match self.options.tiler:
@@ -45,5 +61,6 @@ class UpscaleNode(Node[UpscaleOptions]):
 
     def process(self, files: List[ImageFile]) -> List[ImageFile]:
         for file in files:
-            file.data = upscale_with_tiler(file.data, self.tiler, self.model, self.device)
+            img = self._img_ch_to_model_ch(file.data)
+            file.data = upscale_with_tiler(img, self.tiler, self.model, self.device)
         return files
