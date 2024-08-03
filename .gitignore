@@ -1,11 +1,6 @@
-# pixi environments
-.pixi
-*.egg-info
-
 # IDE's
 /.idea
 
 # Temporary folders
 /dist
-/.pdm-build
 /.dev
