@@ -22,7 +22,7 @@ INTERNAL_REGISTRY = (
     .set('level', LevelNode, LevelOptions)
     .set('halftone', HalftoneNode, HalftoneOptions)
     .set('sharp', SharpNode, SharpOptions)
-    .set('sharp', DitheringNode, DitheringOptions)
+    .set('dithering', DitheringNode, DitheringOptions)
 )
 
 __all__ = [
