@@ -11,7 +11,7 @@ from ..nodes.folder_writer import FolderWriterNode
 
 
 class Pipeline:
-    def __init__(self, nodes: List[Node], linear: bool = True):
+    def __init__(self, nodes: List[Node]):
         self.nodes = nodes
 
     def process(self, with_tqdm: bool = True):
