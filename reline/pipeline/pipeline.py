@@ -4,10 +4,14 @@ from tqdm import tqdm
 
 from ..nodes import INTERNAL_REGISTRY
 from ..static import Node
+from ..nodes.file_reader import FileReaderNode
+from ..nodes.folder_reader import FolderReaderNode
+from ..nodes.file_writer import FileWriterNode
+from ..nodes.folder_writer import FolderWriterNode
 
 
 class Pipeline:
-    def __init__(self, nodes: List[Node]):
+    def __init__(self, nodes: List[Node], linear: bool = True):
         self.nodes = nodes
 
     def process(self, with_tqdm: bool = True):
@@ -15,6 +19,27 @@ class Pipeline:
         for node in tqdm(self.nodes, desc='Node Processing', disable=not with_tqdm):
             data = node.process(data)
         return data
+
+    def process_linear(self, with_tqdm: bool = True):
+        data = []
+        nodes_index = 0
+        save_index = 0
+        while nodes_index < len(self.nodes):
+            node = self.nodes[nodes_index]
+            nodes_index += 1
+            if isinstance(node, FileReaderNode | FolderReaderNode):
+                data = node.process(data)
+                for img in tqdm(data, desc="Processing Images", disable=not with_tqdm):
+                    img = [img]
+                    local_node_index = nodes_index
+                    for node in self.nodes[local_node_index:]:
+                        img = node.process(img)
+                        local_node_index += 1
+                        if isinstance(node, FolderWriterNode | FileWriterNode):
+                            save_index = local_node_index
+                            break
+
+                nodes_index = save_index
 
     @classmethod
     def from_json(cls, data: Dict) -> Pipeline:

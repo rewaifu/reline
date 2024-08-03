@@ -54,10 +54,13 @@ class FolderReaderNode(Node[FolderReaderOptions]):
         files = []
 
         for file_path in file_paths:
-            basename, _ = os.path.splitext(os.path.basename(file_path))
-            data = read(file_path, self.mode, ImgFormat.F32)
+            try:
+                basename, _ = os.path.splitext(os.path.basename(file_path))
+                data = read(file_path, self.mode, ImgFormat.F32)
 
-            file = ImageFile(data, basename)
-            files.append(file)
+                file = ImageFile(data, basename)
+                files.append(file)
+            except:
+                continue
 
         return files
