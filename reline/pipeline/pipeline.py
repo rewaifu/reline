@@ -12,7 +12,7 @@ class Pipeline:
 
     def process(self, with_tqdm: bool = True):
         data = []
-        for node in tqdm(self.nodes, desc='Processing images', disable=not with_tqdm):
+        for node in tqdm(self.nodes, desc='Node Processing', disable=not with_tqdm):
             data = node.process(data)
         return data
 
