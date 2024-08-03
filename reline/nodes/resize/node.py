@@ -14,6 +14,8 @@ class ResizeOptions(NodeOptions):
     percent: Optional[float] = None
     filter: Optional[FilterType] = 'cubic_catrom'
     gamma_correction: Optional[bool] = False
+    spread: Optional[bool] = False
+    spread_size: Optional[int] = 2800
 
 
 class ResizeNode(Node[ResizeOptions]):
@@ -38,6 +40,8 @@ class ResizeNode(Node[ResizeOptions]):
         return self.options.height, int(width * (self.options.height / height))
 
     def _calculate_size__width(self, height: int, width: int):
+        if self.options.spread and width > height:
+            width = self.options.spread_size
         return int(height * (self.options.width / width)), self.options.width
 
     def _calculate_size__percent(self, height: int, width: int):
