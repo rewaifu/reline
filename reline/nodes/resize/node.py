@@ -40,9 +40,10 @@ class ResizeNode(Node[ResizeOptions]):
         return self.options.height, int(width * (self.options.height / height))
 
     def _calculate_size__width(self, height: int, width: int):
+        result_width = self.options.width
         if self.options.spread and width > height:
-            width = self.options.spread_size
-        return int(height * (self.options.width / width)), self.options.width
+            result_width = self.options.spread_size
+        return int(height * (result_width / width)), result_width
 
     def _calculate_size__percent(self, height: int, width: int):
         return int(height * self.options.percent), int(width * self.options.percent)
