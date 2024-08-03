@@ -3,6 +3,7 @@ from __future__ import annotations
 import os.path
 from dataclasses import dataclass, field
 from typing import List, Optional, Literal
+import logging
 
 from pepeline import read, ImgFormat, ImgColor
 
@@ -38,7 +39,7 @@ class FolderReaderNode(Node[FolderReaderOptions]):
                 elif entry.is_dir() and self.options.recursive:
                     file_paths.extend(self._scandir(os.path.abspath(entry.path)))
         except OSError as e:
-            print(f'Error scanning directory {dir_path}: {e}')
+            logging.error(f'Error scanning directory {dir_path}: {e}')
 
         return file_paths
 
