@@ -26,20 +26,23 @@ class Pipeline:
         save_index = 0
         while nodes_index < len(self.nodes):
             node = self.nodes[nodes_index]
-            nodes_index += 1
+            print(node,nodes_index)
             if isinstance(node, FileReaderNode | FolderReaderNode):
+
                 data = node.process(data)
                 for img in tqdm(data, desc="Processing Images", disable=not with_tqdm):
                     img = [img]
-                    local_node_index = nodes_index
+                    local_node_index = nodes_index+1
                     for node in self.nodes[local_node_index:]:
                         img = node.process(img)
                         local_node_index += 1
                         if isinstance(node, FolderWriterNode | FileWriterNode):
-                            save_index = local_node_index
+                            save_index = local_node_index - 1
                             break
-
                 nodes_index = save_index
+                nodes_index += 1
+            else:
+                nodes_index += 1
 
     @classmethod
     def from_json(cls, data: Dict) -> Pipeline:
