@@ -26,7 +26,6 @@ class Pipeline:
         save_index = 0
         while nodes_index < len(self.nodes):
             node = self.nodes[nodes_index]
-            print(node,nodes_index)
             if isinstance(node, FileReaderNode | FolderReaderNode):
 
                 data = node.process(data)
