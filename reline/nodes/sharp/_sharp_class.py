@@ -30,7 +30,7 @@ class DiapasonBlack:
     def run(self, img_float: np.ndarray) -> np.ndarray:
         black_mask = binary_threshold(img_float, self.diapason, False)
         blur = cv.GaussianBlur(black_mask, (3, 3), 0)
-        blur_mask = 1 - binary_threshold(blur, 0.6, False)
+        blur_mask = 1 - binary_threshold(blur, 0.6, False).squeeze()
 
         return np.clip(img_float - blur_mask, 0, 1)
 
