@@ -52,7 +52,7 @@ class FolderReaderNode(Node[FolderReaderOptions]):
     def process(self, _) -> List[ImageFile]:
         file_paths = self._scandir(self.options.path)
         files = []
-
+        basename = None
         for file_path in file_paths:
             try:
                 basename, _ = os.path.splitext(os.path.basename(file_path))
@@ -60,7 +60,8 @@ class FolderReaderNode(Node[FolderReaderOptions]):
 
                 file = ImageFile(data, basename)
                 files.append(file)
-            except:
+            except Exception as e:
+                logging.warning(f"image {basename} not decoded due to error: {e}")
                 continue
 
         return files
