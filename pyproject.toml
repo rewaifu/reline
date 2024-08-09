@@ -11,7 +11,7 @@ pepeline = "^0.3.8"
 chainner-ext = "^0.3.10"
 tqdm = "^4.66.4"
 opencv-python = "^4.10.0.84"
-resselt = {url = "https://public.yor.ovh/resselt-1.0.0-py3-none-any.whl"}
+resselt = {url = "https://bucket.yor.ovh/resselt-1.0.0-py3-none-any.whl"}
 numpy = "<2"
 
 [tool.poetry.group.dev.dependencies]
