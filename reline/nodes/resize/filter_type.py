@@ -27,8 +27,6 @@ FilterType = Literal[
     'cubic_catrom',
     'cubic_mitchell',
     'cubic_bspline',
-    #'hamming',
-    #'hann',
     'lanczos',
     'lagrange',
     'gauss',
