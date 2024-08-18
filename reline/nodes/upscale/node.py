@@ -62,5 +62,5 @@ class UpscaleNode(Node[UpscaleOptions]):
     def process(self, files: List[ImageFile]) -> List[ImageFile]:
         for file in files:
             img = self._img_ch_to_model_ch(file.data)
-            file.data = upscale_with_tiler(img, self.tiler, self.model, self.device)
+            file.data = upscale_with_tiler(img, self.tiler, self.model, self.device).squeeze()
         return files

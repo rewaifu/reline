@@ -8,7 +8,7 @@ from .level import LevelNode, LevelOptions
 from .halftone import HalftoneNode, HalftoneOptions
 from .sharp import SharpNode, SharpOptions
 from .dithering import DitheringNode, DitheringOptions
-
+from .cvt_color import CvtColorNode, CvtColorOptions
 from .registry import Registry
 
 INTERNAL_REGISTRY = (
@@ -23,6 +23,7 @@ INTERNAL_REGISTRY = (
     .set('halftone', HalftoneNode, HalftoneOptions)
     .set('sharp', SharpNode, SharpOptions)
     .set('dithering', DitheringNode, DitheringOptions)
+    .set('cvt_color', CvtColorNode, CvtColorOptions)
 )
 
 __all__ = [
@@ -45,5 +46,7 @@ __all__ = [
     'HalftoneOptions',
     'SharpNode',
     'SharpOptions',
+    'CvtColorNode',
+    'CvtColorOptions',
     'INTERNAL_REGISTRY',
 ]
