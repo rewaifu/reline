@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Optional
 
 import numpy as np
 
@@ -7,3 +8,4 @@ import numpy as np
 class ImageFile:
     data: np.ndarray
     basename: str
+    dir: Optional[str] = None
