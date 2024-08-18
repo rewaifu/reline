@@ -27,6 +27,7 @@ class FolderReaderNode(Node[FolderReaderOptions]):
         super().__init__(options)
         self.mode = MODE_MAP[options.mode]
         self.allowed_extensions = options.allowed_extensions
+        self.dir_path = os.path.abspath(self.options.path)
         if isinstance(self.allowed_extensions, list):
             self.allowed_extensions = [ext.lower() for ext in self.allowed_extensions]
 
@@ -37,7 +38,7 @@ class FolderReaderNode(Node[FolderReaderOptions]):
             for entry in os.scandir(dir_path):
                 if entry.is_file():
                     if isinstance(self.allowed_extensions, list):
-                        ext = entry.name.split(".")[-1].lower()
+                        ext = entry.name.split('.')[-1].lower()
                         if ext in self.options.allowed_extensions:
                             file_paths.append(os.path.abspath(entry.path))
                     else:
@@ -50,18 +51,21 @@ class FolderReaderNode(Node[FolderReaderOptions]):
         return file_paths
 
     def process(self, _) -> List[ImageFile]:
-        file_paths = self._scandir(self.options.path)
+        file_paths = self._scandir(self.dir_path)
         files = []
         basename = None
         for file_path in file_paths:
             try:
+                commonprefix = os.path.commonprefix([self.dir_path, file_path])
+                dirpath = os.path.dirname(os.path.relpath(file_path, commonprefix))
                 basename, _ = os.path.splitext(os.path.basename(file_path))
+
                 data = read(file_path, self.mode, ImgFormat.F32)
 
-                file = ImageFile(data, basename)
+                file = ImageFile(data, basename, dirpath)
                 files.append(file)
             except Exception as e:
-                logging.warning(f"image {basename} not decoded due to error: {e}")
+                logging.warning(f'image {basename} not decoded due to error: {e}')
                 continue
 
         return files
