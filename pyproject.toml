@@ -11,7 +11,7 @@ pepeline = "^0.3.8"
 chainner-ext = "^0.3.10"
 tqdm = "^4.66.4"
 opencv-python = "^4.10.0.84"
-resselt = {url = "https://bucket.yor.ovh/resselt-1.0.0-py3-none-any.whl"}
+resselt = { version = ">=1,<2", source = "yor" }
 numpy = "<2"
 
 [tool.poetry.group.dev.dependencies]
@@ -19,12 +19,17 @@ ruff = "^0.5.5"
 pre-commit = "^3.8.0"
 
 [tool.poetry.group.torch.dependencies]
-torch = {version = "^2.4.0+cu121", source = "pytorch-gpu"}
-torchvision = {version = "^0.19.0+cu121", source = "pytorch-gpu"}
+torch = { version = "^2.4.0+cu121", source = "pytorch-gpu" }
+torchvision = { version = "^0.19.0+cu121", source = "pytorch-gpu" }
 
 [[tool.poetry.source]]
 name = "pytorch-gpu"
 url = "https://download.pytorch.org/whl/cu121"
+priority = "explicit"
+
+[[tool.poetry.source]]
+name = "yor"
+url = "https://pypi.yor.ovh"
 priority = "explicit"
 
 [tool.ruff]
