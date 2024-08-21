@@ -31,7 +31,7 @@ class DiapasonBlack:
         black_mask = binary_threshold(img_float, self.diapason, False)
         blur = cv.GaussianBlur(black_mask, (3, 3), 0)
         blur_mask = binary_threshold(blur, 0.9, False).squeeze()
-        return np.where(blur_mask, img_float,  0)
+        return np.where(blur_mask, img_float, 0)
 
 
 class ColorLevels:

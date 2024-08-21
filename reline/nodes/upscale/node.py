@@ -43,7 +43,7 @@ class UpscaleNode(Node[UpscaleOptions]):
             if len(img_shape) == 3:
                 img = cvt_color(img, CvtType.RGB2GrayBt2020)
         else:
-            logging.error("model format is not currently supported")
+            logging.error('model format is not currently supported')
         return img
 
     def _create_tiler(self):
