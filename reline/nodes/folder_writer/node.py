@@ -26,4 +26,6 @@ class FolderWriterNode(Node[FolderWriterOptions]):
 
     def process(self, files: List[ImageFile]):
         for file in files:
-            save(file.data, os.path.join(self.options.path, f'{file.basename}.{self.options.format}'))
+            full_path = os.path.join(os.path.abspath(self.options.path), file.dir, f'{file.basename}.{self.options.format}')
+            os.makedirs(os.path.dirname(full_path), exist_ok=True)
+            save(file.data, full_path)

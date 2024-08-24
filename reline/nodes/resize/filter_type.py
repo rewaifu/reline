@@ -13,7 +13,6 @@ FILTER_MAP = {
     # https://github.com/chaiNNer-org/chaiNNer-rs/issues/28
     #'hamming': ResizeFilter.Hamming,
     #'hann': ResizeFilter.Hann,
-    
     'lanczos': ResizeFilter.Lanczos,
     'lagrange': ResizeFilter.Lagrange,
     'gauss': ResizeFilter.Gauss,

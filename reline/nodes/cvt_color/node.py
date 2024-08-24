@@ -7,12 +7,12 @@ from dataclasses import dataclass
 from pepeline import CvtType, cvt_color
 
 CvtDict = {
-    "RGB2Gray2020": CvtType.RGB2GrayBt2020,
-    "RGB2Gray709": CvtType.RGB2GrayBt709,
-    "RGB2Gray": CvtType.RGB2Gray,
-    "Gray2RGB": CvtType.GRAY2RGB,
+    'RGB2Gray2020': CvtType.RGB2GrayBt2020,
+    'RGB2Gray709': CvtType.RGB2GrayBt709,
+    'RGB2Gray': CvtType.RGB2Gray,
+    'Gray2RGB': CvtType.GRAY2RGB,
 }
-CvtTypeList = Literal["RGB2Gray2020", "RGB2Gray709", "RGB2Gray", "Gray2RGB"]
+CvtTypeList = Literal['RGB2Gray2020', 'RGB2Gray709', 'RGB2Gray', 'Gray2RGB']
 
 
 @dataclass(frozen=True)
@@ -32,7 +32,6 @@ class CvtColorNode(Node[CvtColorOptions]):
             return cvt_color(img, self.cvt_type)
         else:
             return img
-
 
     def process(self, files: List[ImageFile]) -> List[ImageFile]:
         for file in files:

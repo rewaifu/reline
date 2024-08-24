@@ -28,7 +28,7 @@ class HalftoneOptions(NodeOptions):
     dot_size: Optional[int] | Optional[list[int]] = 7
     angle: Optional[int] | Optional[list[int]] = 0
     dot_type: Optional[DotType] | Optional[list[DotType]] = 'circle'
-    halftone_mode: Optional[Mode] = "gray"
+    halftone_mode: Optional[Mode] = 'gray'
 
 
 class HalftoneNode(Node[HalftoneOptions]):

@@ -27,9 +27,8 @@ class Pipeline:
         while nodes_index < len(self.nodes):
             node = self.nodes[nodes_index]
             if isinstance(node, FileReaderNode | FolderReaderNode):
-
                 data = node.process(data)
-                for img in tqdm(data, desc="Processing Images", disable=not with_tqdm):
+                for img in tqdm(data, desc='Processing Images', disable=not with_tqdm):
                     img = [img]
                     local_node_index = nodes_index + 1
                     for node in self.nodes[local_node_index:]:
