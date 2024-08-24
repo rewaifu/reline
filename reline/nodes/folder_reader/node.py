@@ -18,7 +18,7 @@ Mode = Literal['rgb', 'gray', 'dynamic']
 class FolderReaderOptions(NodeOptions):
     path: str
     recursive: Optional[bool] = False
-    allowed_extensions: Optional[List[str]] | bool = field(default_factory=lambda: ['png', 'jpg', 'jpeg', 'webp'])
+    allowed_extensions: Optional[List[str]] = field(default_factory=lambda: ['png', 'jpg', 'jpeg', 'webp'])
     mode: Optional[Mode] = 'dynamic'
 
 
