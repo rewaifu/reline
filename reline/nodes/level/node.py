@@ -1,5 +1,7 @@
 from dataclasses import dataclass
 from typing import List, Optional
+
+import numpy as np
 from pepeline import fast_color_level
 
 from reline.static import Node, NodeOptions, ImageFile
@@ -30,3 +32,25 @@ class LevelNode(Node[LevelOptions]):
             )
 
         return files
+
+    def single_process(self, file: ImageFile) -> ImageFile:
+        file.data = fast_color_level(
+            file.data,
+            self.options.low_input,
+            self.options.high_input,
+            self.options.low_output,
+            self.options.high_output,
+            self.options.gamma,
+        )
+        return file
+
+    def video_process(self, file: np.ndarray) -> np.ndarray:
+        file = fast_color_level(
+            file,
+            self.options.low_input,
+            self.options.high_input,
+            self.options.low_output,
+            self.options.high_output,
+            self.options.gamma,
+        )
+        return file

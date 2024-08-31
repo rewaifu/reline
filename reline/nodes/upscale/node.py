@@ -8,6 +8,7 @@ from resselt import global_registry
 from pepeline import cvt_color, CvtType
 from reline.static import Node, NodeOptions, ImageFile
 import logging
+from pepeline import fast_color_level
 
 Tiler = Literal['exact', 'max', 'no_tiling']
 
@@ -64,3 +65,14 @@ class UpscaleNode(Node[UpscaleOptions]):
             img = self._img_ch_to_model_ch(file.data)
             file.data = upscale_with_tiler(img, self.tiler, self.model, self.device).squeeze()
         return files
+
+    def single_process(self, file: ImageFile) -> ImageFile:
+        img = self._img_ch_to_model_ch(file.data)
+        file.data = upscale_with_tiler(img, self.tiler, self.model, self.device).squeeze()
+        return file
+
+    def video_process(self, file: np.ndarray) -> np.ndarray:
+        img = self._img_ch_to_model_ch(file)
+        # img = fast_color_level(img, 1, 254)
+        file = upscale_with_tiler(img, self.tiler, self.model, self.device).squeeze()
+        return file

@@ -21,3 +21,9 @@ class FileWriterNode(Node[FileWriterOptions]):
             raise ValueError('Expected single image file')
 
         return save(files[0].data, self.options.path)
+
+    def single_process(self, file: ImageFile):
+        return save(file.data, self.options.path)
+
+    def video_process(self, _):
+        raise ValueError("Video scale does not support file write")

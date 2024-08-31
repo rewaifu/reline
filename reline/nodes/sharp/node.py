@@ -1,5 +1,7 @@
 from dataclasses import dataclass
 from typing import List, Optional
+
+import numpy as np
 from pepeline import cvt_color, CvtType
 from ._sharp_class import Canny, DiapasonBlack, DiapasonWhite, ColorLevels
 from reline.static import Node, NodeOptions, ImageFile
@@ -39,3 +41,26 @@ class SharpNode(Node[SharpOptions]):
                 img_float = process.run(img_float)
             file.data = img_float
         return files
+
+    def single_process(self, file: ImageFile) -> ImageFile:
+        if len(self.stack) == 0:
+            return file
+
+        img_float = file.data.squeeze()
+        if img_float.ndim == 3:
+            img_float = cvt_color(img_float, CvtType.RGB2GrayBt2020)
+        for process in self.stack:
+            img_float = process.run(img_float)
+        file.data = img_float
+        return file
+
+    def video_process(self, file: np.ndarray) -> np.ndarray:
+        if len(self.stack) == 0:
+            return file
+
+        img_float = file.squeeze()
+        if img_float.ndim == 3:
+            img_float = cvt_color(img_float, CvtType.RGB2GrayBt2020)
+        for process in self.stack:
+            img_float = process.run(img_float)
+        return img_float

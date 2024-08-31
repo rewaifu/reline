@@ -38,3 +38,12 @@ class CvtColorNode(Node[CvtColorOptions]):
             file.data = self.__cvt_logic(file.data)
 
         return files
+
+    def single_process(self, file: ImageFile) -> ImageFile:
+        file.data = self.__cvt_logic(file.data)
+
+        return file
+    def video_process(self, file: np.ndarray) -> np.ndarray:
+        file = self.__cvt_logic(file)
+
+        return file

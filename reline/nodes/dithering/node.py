@@ -4,7 +4,8 @@ from typing import List, Optional, Literal
 import numpy as np
 
 from reline.static import Node, NodeOptions, ImageFile
-from chainner_ext import quantize, error_diffusion_dither, ordered_dither, riemersma_dither, DiffusionAlgorithm, UniformQuantization
+from chainner_ext import quantize, error_diffusion_dither, ordered_dither, riemersma_dither, DiffusionAlgorithm, \
+    UniformQuantization
 
 ERROR_DITHERING_MAP = {
     'floydsteinberg': DiffusionAlgorithm.FloydSteinberg,
@@ -66,3 +67,41 @@ class DitheringNode(Node[DitheringOptions]):
             file.data = dithering_process(img=file.data)
 
         return files
+
+    def single_process(self, file: ImageFile) -> ImageFile:
+        dithering_type_map = {
+            'floydsteinberg': lambda img: self._error(img),
+            'jarvisjudiceninke': lambda img: self._error(img),
+            'stucki': lambda img: self._error(img),
+            'atkinson': lambda img: self._error(img),
+            'burkes': lambda img: self._error(img),
+            'sierra': lambda img: self._error(img),
+            'tworowsierra': lambda img: self._error(img),
+            'sierraLite': lambda img: self._error(img),
+            'order': lambda img: self._order(img),
+            'riemersma': lambda img: self._riemersma(img),
+            'quantize': lambda img: self._quantize(img),
+        }
+        dithering_process = dithering_type_map[self.options.dith_type]
+        file.data = dithering_process(img=file.data)
+
+        return file
+
+    def video_process(self, file: np.ndarray) -> np.ndarray:
+        dithering_type_map = {
+            'floydsteinberg': lambda img: self._error(img),
+            'jarvisjudiceninke': lambda img: self._error(img),
+            'stucki': lambda img: self._error(img),
+            'atkinson': lambda img: self._error(img),
+            'burkes': lambda img: self._error(img),
+            'sierra': lambda img: self._error(img),
+            'tworowsierra': lambda img: self._error(img),
+            'sierraLite': lambda img: self._error(img),
+            'order': lambda img: self._order(img),
+            'riemersma': lambda img: self._riemersma(img),
+            'quantize': lambda img: self._quantize(img),
+        }
+        dithering_process = dithering_type_map[self.options.dith_type]
+        file = dithering_process(img=file)
+
+        return file

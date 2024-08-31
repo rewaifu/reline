@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from typing import List, Optional, Literal
 
+import numpy as np
 from pepeline import TypeDot
 
 from ._halftone_func import MODE_MAP, Mode
@@ -46,3 +47,11 @@ class HalftoneNode(Node[HalftoneOptions]):
         for file in files:
             file.data = self.halftone(file.data.squeeze(), self.dot_size, self.angle, self.dot_type)
         return files
+
+    def single_process(self, file: ImageFile) -> ImageFile:
+        file.data = self.halftone(file.data.squeeze(), self.dot_size, self.angle, self.dot_type)
+        return file
+
+    def video_process(self, file: np.ndarray) -> np.ndarray:
+        file = self.halftone(file.squeeze(), self.dot_size, self.angle, self.dot_type)
+        return file

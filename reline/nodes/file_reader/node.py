@@ -29,3 +29,9 @@ class FileReaderNode(Node[FileReaderOptions]):
         data = read(self.options.path, mode=self.mode, format=ImgFormat.F32)
 
         return [ImageFile(data, basename)]
+
+    def single_process(self, _) -> List[ImageFile]:
+        return self.process(0)
+
+    def video_process(self, _):
+        raise ValueError("Video scale does not support file read")

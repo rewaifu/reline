@@ -1,6 +1,12 @@
 from __future__ import annotations
+
+import os
 from typing import List, Dict
+
+import cv2
+import numpy as np
 from tqdm import tqdm
+from moviepy.editor import VideoFileClip
 
 from ..nodes import INTERNAL_REGISTRY
 from ..static import Node
@@ -27,12 +33,11 @@ class Pipeline:
         while nodes_index < len(self.nodes):
             node = self.nodes[nodes_index]
             if isinstance(node, FileReaderNode | FolderReaderNode):
-                data = node.process(data)
+                data = node.single_process(data)
                 for img in tqdm(data, desc='Processing Images', disable=not with_tqdm):
-                    img = [img]
                     local_node_index = nodes_index + 1
                     for node in self.nodes[local_node_index:]:
-                        img = node.process(img)
+                        img = node.single_process(img)
                         local_node_index += 1
                         if isinstance(node, FolderWriterNode | FileWriterNode):
                             save_index = local_node_index - 1
@@ -41,6 +46,23 @@ class Pipeline:
                 nodes_index += 1
             else:
                 nodes_index += 1
+        del data
+
+    def process_frame(self, frame):
+        frame = frame.astype(np.float32) / 255
+        for node in self.nodes:
+            frame = node.video_process(frame)
+        if frame.ndim == 2:
+            frame = cv2.cvtColor(frame, cv2.COLOR_GRAY2RGB)
+        return np.clip(frame * 255, 0, 255).astype(np.uint8)
+
+    def process_video(self, in_folder, out_folder, codec):
+        video = VideoFileClip(in_folder).to_RGB()
+        processed_video = video.fl_image(self.process_frame)
+        audio = video.audio
+        final_video = processed_video.set_audio(audio)
+        os.makedirs(os.path.dirname(out_folder), exist_ok=True)
+        final_video.write_videofile(out_folder, codec=codec)
 
     @classmethod
     def from_json(cls, data: Dict) -> Pipeline:
