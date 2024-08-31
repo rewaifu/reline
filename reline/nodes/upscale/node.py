@@ -3,7 +3,7 @@ from typing import Optional, List, Literal
 
 import numpy as np
 import torch.cuda
-from resselt.utils import ExactTiler, MaxTiler, NoTiling, upscale_with_tiler
+from resselt.utils import ExactTiler, MaxTiler, NoTiling, upscale_with_tiler, empty_cuda_cache
 from resselt import global_registry
 from pepeline import cvt_color, CvtType
 from reline.static import Node, NodeOptions, ImageFile
@@ -32,6 +32,8 @@ class UpscaleNode(Node[UpscaleOptions]):
         self.model_parameters = self.model.parameters()
         self.tiler = self._create_tiler()
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        if self.device == 'cuda':
+            empty_cuda_cache()
 
     def _img_ch_to_model_ch(self, img: np.ndarray) -> np.ndarray:
         img_shape = img.shape
