@@ -26,4 +26,4 @@ class FileWriterNode(Node[FileWriterOptions]):
         return save(file.data, self.options.path)
 
     def video_process(self, _):
-        raise ValueError("Video scale does not support file write")
+        raise ValueError('Video scale does not support file write')

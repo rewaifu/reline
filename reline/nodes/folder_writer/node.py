@@ -26,8 +26,7 @@ class FolderWriterNode(Node[FolderWriterOptions]):
 
     def process(self, files: List[ImageFile]):
         for file in files:
-            full_path = os.path.join(os.path.abspath(self.options.path), file.dir,
-                                     f'{file.basename}.{self.options.format}')
+            full_path = os.path.join(os.path.abspath(self.options.path), file.dir, f'{file.basename}.{self.options.format}')
             os.makedirs(os.path.dirname(full_path), exist_ok=True)
             save(file.data, full_path)
 
@@ -37,4 +36,4 @@ class FolderWriterNode(Node[FolderWriterOptions]):
         save(file.data, full_path)
 
     def video_process(self, file: np.ndarray) -> np.ndarray:
-        raise ValueError("Video scale does not support folder writer")
+        raise ValueError('Video scale does not support folder writer')

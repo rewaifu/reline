@@ -34,4 +34,4 @@ class FileReaderNode(Node[FileReaderOptions]):
         return self.process(0)
 
     def video_process(self, _):
-        raise ValueError("Video scale does not support file read")
+        raise ValueError('Video scale does not support file read')

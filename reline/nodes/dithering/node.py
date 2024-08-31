@@ -4,8 +4,7 @@ from typing import List, Optional, Literal
 import numpy as np
 
 from reline.static import Node, NodeOptions, ImageFile
-from chainner_ext import quantize, error_diffusion_dither, ordered_dither, riemersma_dither, DiffusionAlgorithm, \
-    UniformQuantization
+from chainner_ext import quantize, error_diffusion_dither, ordered_dither, riemersma_dither, DiffusionAlgorithm, UniformQuantization
 
 ERROR_DITHERING_MAP = {
     'floydsteinberg': DiffusionAlgorithm.FloydSteinberg,

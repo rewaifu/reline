@@ -5,7 +5,6 @@ from dataclasses import dataclass
 from typing import List, Optional, Literal
 import logging
 
-import numpy as np
 from pepeline import read, ImgFormat, ImgColor
 
 from reline.static import Node, NodeOptions, ImageFile
@@ -66,4 +65,4 @@ class FolderReaderNode(Node[FolderReaderOptions]):
         return self.process(0)
 
     def video_process(self, _):
-        raise ValueError("Video scale does not support folder read")
+        raise ValueError('Video scale does not support folder read')

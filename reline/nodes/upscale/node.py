@@ -8,7 +8,6 @@ from resselt import global_registry
 from pepeline import cvt_color, CvtType
 from reline.static import Node, NodeOptions, ImageFile
 import logging
-from pepeline import fast_color_level
 
 Tiler = Literal['exact', 'max', 'no_tiling']
 
