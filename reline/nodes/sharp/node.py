@@ -6,7 +6,9 @@ from pepeline import cvt_color, CvtType
 from ._sharp_class import Canny, DiapasonBlack, DiapasonWhite, ColorLevels
 from reline.static import Node, NodeOptions, ImageFile
 
-CannyType = Literal["invert","normal"]
+CannyType = Literal['invert', 'normal']
+
+
 @dataclass(frozen=True)
 class SharpOptions(NodeOptions):
     low_input: Optional[int] = 0
@@ -15,7 +17,7 @@ class SharpOptions(NodeOptions):
     diapason_white: Optional[int] = -1
     diapason_black: Optional[int] = -1
     canny: Optional[bool] = False
-    canny_type: Optional[CannyType] = "normal"
+    canny_type: Optional[CannyType] = 'normal'
 
 
 class SharpNode(Node[SharpOptions]):
