@@ -1,12 +1,12 @@
 from dataclasses import dataclass
-from typing import List, Optional
+from typing import List, Optional, Literal
 
 import numpy as np
 from pepeline import cvt_color, CvtType
 from ._sharp_class import Canny, DiapasonBlack, DiapasonWhite, ColorLevels
 from reline.static import Node, NodeOptions, ImageFile
 
-
+CannyType = Literal["invert","normal"]
 @dataclass(frozen=True)
 class SharpOptions(NodeOptions):
     low_input: Optional[int] = 0
@@ -15,6 +15,7 @@ class SharpOptions(NodeOptions):
     diapason_white: Optional[int] = -1
     diapason_black: Optional[int] = -1
     canny: Optional[bool] = False
+    canny_type: Optional[CannyType] = "normal"
 
 
 class SharpNode(Node[SharpOptions]):
@@ -28,7 +29,7 @@ class SharpNode(Node[SharpOptions]):
         if options.diapason_black >= 0:
             self.stack.append(DiapasonBlack(options.diapason_black))
         if options.canny:
-            self.stack.append(Canny())
+            self.stack.append(Canny(options.canny_type))
 
     def process(self, files: List[ImageFile]) -> List[ImageFile]:
         if len(self.stack) == 0:
