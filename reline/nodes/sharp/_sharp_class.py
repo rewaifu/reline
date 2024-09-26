@@ -5,8 +5,8 @@ from pepeline import fast_color_level
 
 
 class Canny:
-    def __init__(self,canny_type):
-        if canny_type == "invert":
+    def __init__(self, canny_type):
+        if canny_type == 'invert':
             self.canny_value = 1.0
         else:
             self.canny_value = 0.0
