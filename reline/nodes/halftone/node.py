@@ -15,7 +15,7 @@ DOT_TYPE_MAP = {
     'line': TypeDot.LINE,
 }
 
-DotType = Literal['line', 'cross', 'ellipse', 'invline', 'line', 'circle']
+DotType = Literal['line', 'cross', 'ellipse', 'invline', 'circle']
 
 
 def _int_to_list(int_value: int | list[int]):

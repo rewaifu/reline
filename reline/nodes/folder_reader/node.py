@@ -14,6 +14,38 @@ MODE_MAP = {'rgb': ImgColor.RGB, 'gray': ImgColor.GRAY, 'dynamic': ImgColor.DYNA
 Mode = Literal['rgb', 'gray', 'dynamic']
 
 
+class ImageIterator:
+    def __init__(self, image_paths: list, dir_path: str, mode: ImgColor):
+        self.current = 0
+        self.image_paths = image_paths
+        self.dir_path = dir_path
+        self.end = len(image_paths)
+        self.mode = mode
+
+    def __len__(self):
+        return self.end
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.current >= self.end:
+            raise StopIteration
+        else:
+            try:
+                file_path = self.image_paths[self.current]
+                commonprefix = os.path.commonprefix([self.dir_path, file_path])
+                dirpath = os.path.dirname(os.path.relpath(file_path, commonprefix))
+                basename, _ = os.path.splitext(os.path.basename(file_path))
+                data = read(file_path, self.mode, ImgFormat.F32)
+                file = ImageFile(data, basename, dirpath)
+                self.current += 1
+                return file
+            except Exception as e:
+                logging.warning(f'image {basename} not decoded due to error: {e}')
+                return None
+
+
 @dataclass(frozen=True)
 class FolderReaderOptions(NodeOptions):
     path: str
@@ -61,8 +93,9 @@ class FolderReaderNode(Node[FolderReaderOptions]):
 
         return files
 
-    def single_process(self, _) -> List[ImageFile]:
-        return self.process(0)
+    def single_process(self, _) -> ImageIterator:
+        file_paths = self._scandir(self.dir_path)
+        return ImageIterator(file_paths, self.dir_path, self.mode)
 
     def video_process(self, _):
         raise ValueError('Video scale does not support folder read')

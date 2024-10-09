@@ -35,6 +35,8 @@ class Pipeline:
             if isinstance(node, FileReaderNode | FolderReaderNode):
                 data = node.single_process(data)
                 for img in tqdm(data, desc='Processing Images', disable=not with_tqdm):
+                    if img is None:
+                        continue
                     local_node_index = nodes_index + 1
                     for node in self.nodes[local_node_index:]:
                         img = node.single_process(img)
