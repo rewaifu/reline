@@ -3,20 +3,22 @@ from typing import Optional, List, Literal
 
 import numpy as np
 import torch.cuda
-from resselt.utils import ExactTiler, MaxTiler, NoTiling, upscale_with_tiler, empty_cuda_cache
+from resselt.utils import ExactTiler, MaxTiler, NoTiling, upscale_with_tiler, empty_cuda_cache, UpscaleDType
 from resselt import global_registry
 from pepeline import cvt_color, CvtType
 from reline.static import Node, NodeOptions, ImageFile
 import logging
 
 Tiler = Literal['exact', 'max', 'no_tiling']
+DType = Literal['F32', 'F16', 'BF16']
 
 
 @dataclass(frozen=True)
 class UpscaleOptions(NodeOptions):
     model: str
     tiler: Tiler
-    exact_tiler_size: Optional[int] = None
+    dtype: Optional[DType] = 'F32'
+    exact_tiler_size: Optional[int] = 256
     allow_cpu_upscale: Optional[bool] = False
 
 
@@ -32,6 +34,12 @@ class UpscaleNode(Node[UpscaleOptions]):
         self.model_parameters = self.model.parameters()
         self.tiler = self._create_tiler()
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        if options.dtype == 'F16':
+            self.dtype = UpscaleDType.F16
+        elif options.dtype == 'BF16':
+            self.dtype = UpscaleDType.BF16
+        else:
+            self.dtype = UpscaleDType.F32
         if self.device == 'cuda':
             empty_cuda_cache()
 
@@ -64,16 +72,15 @@ class UpscaleNode(Node[UpscaleOptions]):
     def process(self, files: List[ImageFile]) -> List[ImageFile]:
         for file in files:
             img = self._img_ch_to_model_ch(file.data)
-            file.data = upscale_with_tiler(img, self.tiler, self.model, self.device).squeeze()
+            file.data = upscale_with_tiler(img, self.tiler, self.model, self.device, self.dtype).squeeze()
         return files
 
     def single_process(self, file: ImageFile) -> ImageFile:
         img = self._img_ch_to_model_ch(file.data)
-        file.data = upscale_with_tiler(img, self.tiler, self.model, self.device).squeeze()
+        file.data = upscale_with_tiler(img, self.tiler, self.model, self.device, self.dtype).squeeze()
         return file
 
     def video_process(self, file: np.ndarray) -> np.ndarray:
         img = self._img_ch_to_model_ch(file)
-        # img = fast_color_level(img, 1, 254)
-        file = upscale_with_tiler(img, self.tiler, self.model, self.device).squeeze()
+        file = upscale_with_tiler(img, self.tiler, self.model, self.device, self.dtype).squeeze()
         return file
