@@ -1,45 +1,39 @@
-[tool.poetry]
+[project]
 name = "reline"
-version = "1.1.0"
-description = "Pipeline for process images"
-authors = ["Sekiju", "umzi"]
-license = "MIT"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "chainner-ext>=0.3.10",
+    "moviepy==1.0.2",
+    "opencv-python-headless>=4.11.0.86",
+    "orjson>=3.10.15",
+    "pepeline>=0.3.14",
+    "resselt<2",
+    "tqdm>=4.67.1",
+]
 
-[tool.poetry.dependencies]
-python = ">=3.10"
-pepeline = "^0.3.8"
-chainner-ext = "^0.3.10"
-tqdm = "^4.66.4"
-opencv-python = "^4.10.0.84"
-resselt = { version = ">=1,<2", source = "yor" }
-numpy = "<2"
-moviepy = "^1.0.3"
+[dependency-groups]
+dev = [
+    "pre-commit>=4.1.0",
+    "ruff>=0.9.4",
+    "typer>=0.15.1",
+]
 
-[tool.poetry.group.dev.dependencies]
-ruff = "^0.7.0"
-pre-commit = "^4.0.1"
+[tool.uv.sources]
+torch = { index = "pytorch-cu124" }
+torchvision = { index = "pytorch-cu124" }
+resselt = { index = "yor" }
 
-[tool.poetry.group.torch.dependencies]
-torch = { version = "^2.4.0+cu121", source = "pytorch-gpu" }
-torchvision = { version = "^0.19.0+cu121", source = "pytorch-gpu" }
+[[tool.uv.index]]
+name = "pytorch-cu124"
+url = "https://download.pytorch.org/whl/cu124"
+explicit = true
 
-[[tool.poetry.source]]
-name = "pytorch-gpu"
-url = "https://download.pytorch.org/whl/cu121"
-priority = "explicit"
-
-[[tool.poetry.source]]
+[[tool.uv.index]]
 name = "yor"
-url = "https://pypi.yor.ovh"
-priority = "explicit"
-
-[tool.ruff]
-line-length = 150
-target-version = "py310"
-
-[tool.ruff.format]
-quote-style = "single"
+url = "https://pypi.yor.ovh/simple/"
+publish-url = "https://pypi.yor.ovh/"
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"

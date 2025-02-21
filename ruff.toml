@@ -1,0 +1,10 @@
+line-length = 150
+indent-width = 4
+target-version = "py312"
+
+[lint]
+fixable = ["ALL"]
+unfixable = []
+
+[format]
+quote-style = "single"
