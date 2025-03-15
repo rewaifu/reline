@@ -9,6 +9,7 @@ dependencies = [
     "orjson>=3.10.15",
     "pepeline>=0.3.14",
     "resselt>=2,<3",
+    "reutils>=0.1.0,<1",
     "tqdm>=4.67.1",
     "typer>=0.15.1",
 ]
@@ -26,6 +27,7 @@ reline = "reline.main:cli"
 torch = { index = "pytorch-cu124" }
 torchvision = { index = "pytorch-cu124" }
 resselt = { index = "rewaifu" }
+reutils = { index = "rewaifu" }
 
 [[tool.uv.index]]
 name = "pytorch-cu124"

@@ -623,6 +623,7 @@ dependencies = [
     { name = "orjson" },
     { name = "pepeline" },
     { name = "resselt" },
+    { name = "reutils" },
     { name = "tqdm" },
     { name = "typer" },
 ]
@@ -641,6 +642,7 @@ requires-dist = [
     { name = "orjson", specifier = ">=3.10.15" },
     { name = "pepeline", specifier = ">=0.3.14" },
     { name = "resselt", specifier = ">=2,<3", index = "https://pypi.shd.llc/rewaifu/stable" },
+    { name = "reutils", specifier = ">=0.1.0,<1", index = "https://pypi.shd.llc/rewaifu/stable" },
     { name = "tqdm", specifier = ">=4.67.1" },
     { name = "typer", specifier = ">=0.15.1" },
 ]
@@ -680,6 +682,18 @@ dependencies = [
 sdist = { url = "https://pypi.shd.llc/rewaifu/stable/+f/2c0/dd0ce870c7254/resselt-2.0.0.tar.gz", hash = "sha256:2c0dd0ce870c72543c79836493c147defe9cf5acc0398a59970cef71a5386d51" }
 wheels = [
     { url = "https://pypi.shd.llc/rewaifu/stable/+f/1b6/b331033a5a49c/resselt-2.0.0-py3-none-any.whl", hash = "sha256:1b6b331033a5a49cb1192c16b5da202d1e7263709fa122407abc3c633d551028" },
+]
+
+[[package]]
+name = "reutils"
+version = "0.1.0"
+source = { registry = "https://pypi.shd.llc/rewaifu/stable" }
+dependencies = [
+    { name = "torch" },
+    { name = "torchvision" },
+]
+wheels = [
+    { url = "https://pypi.shd.llc/rewaifu/stable/+f/1e7/44bf81b7b16db/reutils-0.1.0-py3-none-any.whl", hash = "sha256:1e744bf81b7b16db65c6883b84d22816d27615c8fda0b984775d6386afdf421f" },
 ]
 
 [[package]]
