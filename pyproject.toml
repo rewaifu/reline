@@ -19,6 +19,9 @@ dev = [
     "ruff>=0.9.4"
 ]
 
+[project.scripts]
+reline = "reline.main:cli"
+
 [tool.uv.sources]
 torch = { index = "pytorch-cu124" }
 torchvision = { index = "pytorch-cu124" }
