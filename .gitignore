@@ -9,6 +9,3 @@ wheels/
 
 # IDE's
 .idea/
-
-# Temporary files
-scripts/*.json
