@@ -77,19 +77,17 @@ class UpscaleNode(Node[UpscaleOptions]):
             img = self._img_ch_to_model_ch(file.data)
             file.data = process_tiles(
                 img, tiler=self.tiler, model=self.model, device=self.device, dtype=self.dtype, scale=self.model.parameters_info.upscale
-            ).squeeze()
+            )
         return files
 
     def single_process(self, file: ImageFile) -> ImageFile:
         img = self._img_ch_to_model_ch(file.data)
         file.data = process_tiles(
             img, tiler=self.tiler, model=self.model, device=self.device, dtype=self.dtype, scale=self.model.parameters_info.upscale
-        ).squeeze()
+        )
         return file
 
     def video_process(self, file: np.ndarray) -> np.ndarray:
         img = self._img_ch_to_model_ch(file)
-        file = process_tiles(
-            img, tiler=self.tiler, model=self.model, device=self.device, dtype=self.dtype, scale=self.model.parameters_info.upscale
-        ).squeeze()
+        file = process_tiles(img, tiler=self.tiler, model=self.model, device=self.device, dtype=self.dtype, scale=self.model.parameters_info.upscale)
         return file
