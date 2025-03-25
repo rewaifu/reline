@@ -9,7 +9,7 @@ def main(config: str = typer.Option('config.json', '--config', '-c', help='Path 
             data = f.read()
             data = orjson.loads(data)
 
-        Pipeline.from_json(data).process()
+        Pipeline.from_json(data).process_linear()
     except FileNotFoundError:
         typer.echo(f"Error: Config file '{config}' not found.")
         raise typer.Exit(1)
