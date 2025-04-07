@@ -1,6 +1,11 @@
-# IDE's
-/.idea
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+*.pyd
 
-# Temporary folders
-/dist
-/.dev
+# IDE's
+.idea/
