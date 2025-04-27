@@ -32,7 +32,7 @@ class UpscaleNode(Node[UpscaleOptions]):
         super().__init__(options)
 
         if not torch.cuda.is_available() and not options.allow_cpu_upscale:
-            raise 'CUDA is not available. If you want scale with CPU use `allow_cpu_upscale` option'
+            raise BaseException('CUDA is not available. If you want scale with CPU use `allow_cpu_upscale` option')
 
         self.model = load_from_file(options.model)
         self.tiler = self._create_tiler()
