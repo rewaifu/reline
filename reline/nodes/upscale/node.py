@@ -4,7 +4,7 @@ from typing import Optional, List, Literal
 import numpy as np
 import torch.cuda
 from resselt import load_from_file
-from reutils.tiling import MaxTileSize, ExactTileSize, NoTiling, process_tiles
+from resr.tiling import MaxTileSize, ExactTileSize, NoTiling, process_tiles
 from pepeline import cvt_color, CvtType
 from reline.static import Node, NodeOptions, ImageFile
 import logging

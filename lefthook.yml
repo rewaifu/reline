@@ -1,0 +1,15 @@
+pre-commit:
+  parallel: true
+  jobs:
+    - run: uv lock --check
+      glob: pyproject.toml
+
+    - run: uvx ruff check --fix --unsafe-fixes
+      glob: "*.py"
+      stage_fixed: true
+
+    - run: uvx ruff format {staged_files}
+      glob: "*.py"
+      stage_fixed: true
+
+    - run: git update-index --again
