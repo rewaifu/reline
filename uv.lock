@@ -808,7 +808,7 @@ requires-dist = [
     { name = "resr", specifier = ">=1,<2" },
     { name = "resselt", specifier = ">=1,<2" },
     { name = "tqdm", specifier = ">=4.67.1" },
-    { name = "typer", specifier = ">=0.16.0" },
+    { name = "typer", specifier = ">=0.15.4" },
 ]
 
 [package.metadata.requires-dev]
