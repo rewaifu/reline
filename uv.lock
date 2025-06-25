@@ -778,6 +778,7 @@ wheels = [
 
 [[package]]
 name = "reline"
+version = "1.0.3"
 source = { editable = "." }
 dependencies = [
     { name = "chainner-ext" },
