@@ -1,3 +1,4 @@
+import traceback
 import orjson
 import typer
 from . import Pipeline
@@ -13,11 +14,8 @@ def main(config: str = typer.Option('config.json', '--config', '-c', help='Path 
             data = orjson.loads(data)
 
         Pipeline.from_json(data).process_linear()
-    except FileNotFoundError:
-        typer.echo(f"Error: Config file '{config}' not found.")
-        raise typer.Exit(1)
     except orjson.JSONDecodeError:
-        typer.echo(f"Error: Invalid JSON in config file '{config}'")
+        typer.echo(f"Error: Invalid JSON in config file '{config}': {traceback.format_exc()}")
         raise typer.Exit(1)
 
 
