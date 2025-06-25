@@ -9,3 +9,6 @@ wheels/
 
 # IDE's
 .idea/
+
+# Temporary files
+/tmp
