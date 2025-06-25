@@ -1,7 +1,7 @@
 [project]
 name = "reline"
 version = "1.0.1"
-requires-python = ">=3.11"
+requires-python = ">=3.10"
 readme = "README.md"
 license = "MIT"
 dependencies = [
