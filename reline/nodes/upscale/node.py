@@ -76,18 +76,38 @@ class UpscaleNode(Node[UpscaleOptions]):
         for file in files:
             img = self._img_ch_to_model_ch(file.data)
             file.data = process_tiles(
-                img, tiler=self.tiler, model=self.model, device=self.device, dtype=self.dtype, scale=self.model.parameters_info.upscale
+                img,
+                tiler=self.tiler,
+                model=self.model,
+                device=self.device,
+                dtype=self.dtype,
+                scale=self.model.parameters_info.upscale,
+                channels=self.model.parameters_info.in_channels,
             )
         return files
 
     def single_process(self, file: ImageFile) -> ImageFile:
         img = self._img_ch_to_model_ch(file.data)
         file.data = process_tiles(
-            img, tiler=self.tiler, model=self.model, device=self.device, dtype=self.dtype, scale=self.model.parameters_info.upscale
+            img,
+            tiler=self.tiler,
+            model=self.model,
+            device=self.device,
+            dtype=self.dtype,
+            scale=self.model.parameters_info.upscale,
+            channels=self.model.parameters_info.in_channels,
         )
         return file
 
     def video_process(self, file: np.ndarray) -> np.ndarray:
         img = self._img_ch_to_model_ch(file)
-        file = process_tiles(img, tiler=self.tiler, model=self.model, device=self.device, dtype=self.dtype, scale=self.model.parameters_info.upscale)
+        file = process_tiles(
+            img,
+            tiler=self.tiler,
+            model=self.model,
+            device=self.device,
+            dtype=self.dtype,
+            scale=self.model.parameters_info.upscale,
+            channels=self.model.parameters_info.in_channels,
+        )
         return file
