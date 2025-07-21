@@ -2,8 +2,7 @@ from dataclasses import dataclass
 from typing import List, Optional
 
 import numpy as np
-from chainner_ext import resize
-
+from pepeline import resize
 from reline.static import Node, NodeOptions, ImageFile
 from .filter_type import FILTER_MAP, FilterType
 
@@ -55,16 +54,16 @@ class ResizeNode(Node[ResizeOptions]):
     def process(self, files: List[ImageFile]) -> List[ImageFile]:
         for file in files:
             h, w = self.calculate_size(*file.data.shape[:2])
-            file.data = resize(file.data, (w, h), self.filter, self.options.gamma_correction).squeeze()
+            file.data = resize(file.data, h, w, self.filter).squeeze().clip(0, 1)
 
         return files
 
     def single_process(self, file: ImageFile) -> ImageFile:
         h, w = self.calculate_size(*file.data.shape[:2])
-        file.data = resize(file.data, (w, h), self.filter, self.options.gamma_correction).squeeze()
+        file.data = resize(file.data, h, w, self.filter).squeeze().clip(0, 1)
         return file
 
     def video_process(self, file: np.ndarray) -> np.ndarray:
         h, w = self.calculate_size(*file.data.shape[:2])
-        file = resize(file, (w, h), self.filter, self.options.gamma_correction).squeeze()
+        file = resize(file, h, w, self.filter).squeeze().clip(0, 1)
         return file

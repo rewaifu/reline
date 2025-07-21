@@ -2,20 +2,20 @@ from dataclasses import dataclass
 from typing import List, Optional, Literal
 
 import numpy as np
-from pepeline import TypeDot
+from pepeline import DotType
 
 from ._halftone_func import MODE_MAP, Mode
 from reline.static import Node, NodeOptions, ImageFile
 
 DOT_TYPE_MAP = {
-    'circle': TypeDot.CIRCLE,
-    'cross': TypeDot.CROSS,
-    'ellipse': TypeDot.ELLIPSE,
-    'invline': TypeDot.INVLINE,
-    'line': TypeDot.LINE,
+    'circle': DotType.CIRCLE,
+    'cross': DotType.CROSS,
+    'ellipse': DotType.ELLIPSE,
+    'invline': DotType.INVLINE,
+    'line': DotType.LINE,
 }
 
-DotType = Literal['line', 'cross', 'ellipse', 'invline', 'circle']
+TypeDot = Literal['line', 'cross', 'ellipse', 'invline', 'circle']
 
 
 def _int_to_list(int_value: int | list[int]):
@@ -28,7 +28,7 @@ def _int_to_list(int_value: int | list[int]):
 class HalftoneOptions(NodeOptions):
     dot_size: Optional[int] | Optional[list[int]] = 7
     angle: Optional[int] | Optional[list[int]] = 0
-    dot_type: Optional[DotType] | Optional[list[DotType]] = 'circle'
+    dot_type: Optional[TypeDot] | Optional[list[TypeDot]] = 'circle'
     halftone_mode: Optional[Mode] = 'gray'
 
 

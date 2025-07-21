@@ -7,7 +7,6 @@ from .upscale import UpscaleNode, UpscaleOptions
 from .level import LevelNode, LevelOptions
 from .halftone import HalftoneNode, HalftoneOptions
 from .sharp import SharpNode, SharpOptions
-from .dithering import DitheringNode, DitheringOptions
 from .cvt_color import CvtColorNode, CvtColorOptions
 from .registry import Registry
 
@@ -22,7 +21,6 @@ INTERNAL_REGISTRY = (
     .set('level', LevelNode, LevelOptions)
     .set('halftone', HalftoneNode, HalftoneOptions)
     .set('sharp', SharpNode, SharpOptions)
-    .set('dithering', DitheringNode, DitheringOptions)
     .set('cvt_color', CvtColorNode, CvtColorOptions)
 )
 
