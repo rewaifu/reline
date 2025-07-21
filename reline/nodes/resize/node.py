@@ -54,16 +54,16 @@ class ResizeNode(Node[ResizeOptions]):
     def process(self, files: List[ImageFile]) -> List[ImageFile]:
         for file in files:
             h, w = self.calculate_size(*file.data.shape[:2])
-            file.data = resize(file.data, h, w, self.filter).squeeze().clip(0,1)
+            file.data = resize(file.data, h, w, self.filter).squeeze().clip(0, 1)
 
         return files
 
     def single_process(self, file: ImageFile) -> ImageFile:
         h, w = self.calculate_size(*file.data.shape[:2])
-        file.data = resize(file.data, h, w, self.filter).squeeze().clip(0,1)
+        file.data = resize(file.data, h, w, self.filter).squeeze().clip(0, 1)
         return file
 
     def video_process(self, file: np.ndarray) -> np.ndarray:
         h, w = self.calculate_size(*file.data.shape[:2])
-        file = resize(file, h, w, self.filter).squeeze().clip(0,1)
+        file = resize(file, h, w, self.filter).squeeze().clip(0, 1)
         return file

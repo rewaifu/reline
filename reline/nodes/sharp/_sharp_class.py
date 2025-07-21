@@ -1,5 +1,6 @@
 import cv2 as cv
 import numpy as np
+
 # from chainner_ext import binary_threshold
 from pepeline import color_levels
 

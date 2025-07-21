@@ -3,7 +3,6 @@ from typing import Literal
 import numpy as np
 from pepeline import screentone, cvt_color, CVTColor, DotType, halftone
 import cv2 as cv
-from pepeline.pepeline import ResizesAlg, ResizesFilter
 
 
 def rgb_halftone(img: np.ndarray, dot_size: list[int], angle: list[int], dot_type: list[DotType]) -> np.ndarray:
@@ -32,7 +31,7 @@ def cmyk_halftone(img: np.ndarray, dot_size: list[int], angle: list[int], dot_ty
         img,
         [dot_size[index % dot_size_len] for index in range(4)],
         [angle[index % angle_len] for index in range(4)],
-        [dot_type[index % dot_type_len] for index in range(4)]
+        [dot_type[index % dot_type_len] for index in range(4)],
     )
     img = cvt_color(img, CVTColor.CMYK2RGB)
     return img
