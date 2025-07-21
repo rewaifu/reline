@@ -5,7 +5,7 @@ import numpy as np
 import torch.cuda
 from resselt import load_from_file
 from resr.tiling import MaxTileSize, ExactTileSize, NoTiling, process_tiles
-from pepeline import cvt_color, CvtType
+from pepeline import cvt_color, CVTColor
 from reline.static import Node, NodeOptions, ImageFile
 import logging
 
@@ -51,10 +51,10 @@ class UpscaleNode(Node[UpscaleOptions]):
         img = img.squeeze()
         if self.model.parameters_info.in_channels == 3:
             if len(img_shape) == 2:
-                img = cvt_color(img, CvtType.GRAY2RGB)
+                img = cvt_color(img, CVTColor.Gray2RGB)
         elif self.model.parameters_info.in_channels == 1:
             if len(img_shape) == 3:
-                img = cvt_color(img, CvtType.RGB2GrayBt2020)
+                img = cvt_color(img, CVTColor.RGB2Gray_2020)
         else:
             logging.error('model format is not currently supported')
         return img

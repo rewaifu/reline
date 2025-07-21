@@ -4,13 +4,13 @@ import numpy as np
 
 from ...static import NodeOptions, Node, ImageFile
 from dataclasses import dataclass
-from pepeline import CvtType, cvt_color
+from pepeline import CVTColor, cvt_color
 
 CvtDict = {
-    'RGB2Gray2020': CvtType.RGB2GrayBt2020,
-    'RGB2Gray709': CvtType.RGB2GrayBt709,
-    'RGB2Gray': CvtType.RGB2Gray,
-    'Gray2RGB': CvtType.GRAY2RGB,
+    'RGB2Gray2020': CVTColor.RGB2Gray_2020,
+    'RGB2Gray709': CVTColor.RGB2Gray_709,
+    'RGB2Gray': CVTColor.RGB2Gray_601,
+    'Gray2RGB': CVTColor.Gray2RGB,
 }
 CvtTypeList = Literal['RGB2Gray2020', 'RGB2Gray709', 'RGB2Gray', 'Gray2RGB']
 
@@ -26,9 +26,9 @@ class CvtColorNode(Node[CvtColorOptions]):
         self.cvt_type = CvtDict[options.cvt_type]
 
     def __cvt_logic(self, img: np.ndarray) -> np.ndarray:
-        if self.cvt_type in [CvtType.RGB2GrayBt2020, CvtType.RGB2GrayBt709, CvtType.RGB2Gray] and img.ndim == 3:
+        if self.cvt_type in [CVTColor.RGB2Gray_2020, CVTColor.RGB2Gray_709, CVTColor.RGB2Gray_601] and img.ndim == 3:
             return cvt_color(img, self.cvt_type)
-        elif self.cvt_type in [CvtType.GRAY2RGB] and img.ndim == 2:
+        elif self.cvt_type in [CVTColor.Gray2RGB] and img.ndim == 2:
             return cvt_color(img, self.cvt_type)
         else:
             return img

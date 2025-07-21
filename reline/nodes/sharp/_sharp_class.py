@@ -1,7 +1,7 @@
 import cv2 as cv
 import numpy as np
-from chainner_ext import binary_threshold
-from pepeline import fast_color_level
+# from chainner_ext import binary_threshold
+from pepeline import color_levels
 
 
 class Canny:
@@ -33,9 +33,9 @@ class DiapasonBlack:
         self.diapason = diapason_black / 255
 
     def run(self, img_float: np.ndarray) -> np.ndarray:
-        black_mask = binary_threshold(img_float, self.diapason, False)
+        black_mask = (img_float > self.diapason).astype(np.float32)
         blur = cv.GaussianBlur(black_mask, (3, 3), 0)
-        blur_mask = binary_threshold(blur, 0.9, False).squeeze()
+        blur_mask = (blur > 0.9).astype(np.float32)
         return np.where(blur_mask, img_float, 0)
 
 
@@ -46,4 +46,4 @@ class ColorLevels:
         self.gamma = gamma
 
     def run(self, img_float: np.ndarray) -> np.ndarray:
-        return fast_color_level(img_float, self.low_input, self.high_input, 0, 255, self.gamma)
+        return color_levels(img_float, self.low_input, self.high_input, 0, 255, self.gamma)

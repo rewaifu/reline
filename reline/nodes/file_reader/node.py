@@ -26,7 +26,7 @@ class FileReaderNode(Node[FileReaderOptions]):
 
     def process(self, _) -> List[ImageFile]:
         basename, _ = os.path.splitext(os.path.basename(self.options.path))
-        data = read(self.options.path, mode=self.mode, format=ImgFormat.F32)
+        data = read(self.options.path, color_mode=self.mode, img_format=ImgFormat.F32)
 
         return [ImageFile(data, basename)]
 
