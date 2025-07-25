@@ -13,7 +13,7 @@ class ResizeOptions(NodeOptions):
     width: Optional[int] = None
     percent: Optional[float] = None
     filter: Optional[FilterType] = 'cubic_catrom'
-    gamma_correction: Optional[bool] = False
+    gamma_correction: Optional[bool] = False  # Потом уберу
     spread: Optional[bool] = False
     spread_size: Optional[int] = 2800
 
