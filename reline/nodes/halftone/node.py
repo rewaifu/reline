@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import List, Optional, Literal
 
 import numpy as np
-from pepeline import DotType
+from pepeline import DotType, ryon_mode
 
 from ._halftone_func import MODE_MAP, Mode
 from reline.static import Node, NodeOptions, ImageFile
@@ -47,6 +47,7 @@ class HalftoneNode(Node[HalftoneOptions]):
             self.dot_type = [DOT_TYPE_MAP[dot_type] for dot_type in options.dot_type]
         self.scale = options.ssaa_scale
         self.ssaa_filter = FILTER_MAP[options.ssaa_filter]
+        ryon_mode(True)
 
     def process(self, files: List[ImageFile]) -> List[ImageFile]:
         for file in files:

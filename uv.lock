@@ -709,21 +709,21 @@ wheels = [
 
 [[package]]
 name = "pepeline"
-version = "1.0.0"
+version = "1.0.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "numpy", version = "2.2.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
     { name = "numpy", version = "2.3.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/8d/e0/f72f789ad0aae07e31a8eecc68bc83dbea50c74ad46354a52b02a3747da1/pepeline-1.0.0.tar.gz", hash = "sha256:18ff365352f7381d467d8bff7e031aac8a63cd23a8407143e15254fe7b170190", size = 57773, upload-time = "2025-07-17T06:48:29.178Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/3d/64/e447a554b2213c0197883a9f1d9677547bfdef2210b58d1a45eb5b70b90c/pepeline-1.0.2.tar.gz", hash = "sha256:efecfd20b32ea21d7f3a2c146e07e8c9f2e866395fe09436c717073141566420", size = 58544, upload-time = "2025-07-25T09:55:18.213Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/20/92/fc545217c435f486b7e2e67f9657274aa8c6d8aa22ccbd5b7c8729601185/pepeline-1.0.0-cp310-abi3-macosx_10_12_x86_64.whl", hash = "sha256:011acfdb19b461df9dabf02aa7efe08ce30c5e7d7456b812fdeeaeae2f44b365", size = 3230672, upload-time = "2025-07-17T06:48:20.322Z" },
-    { url = "https://files.pythonhosted.org/packages/e0/e8/22be97069e441fbf79033f190c256192a5147d9bfad28392aaa690eeca08/pepeline-1.0.0-cp310-abi3-macosx_11_0_arm64.whl", hash = "sha256:430485e9f7539bbbece6036ce8d4d61317b2aec1fa929d22ea5c33cbe5c4921e", size = 2880107, upload-time = "2025-07-17T06:48:21.805Z" },
-    { url = "https://files.pythonhosted.org/packages/6e/e4/ccaafd7fcd4c665a50fd54c5c73e3cc34b5afad2fe78e539b042a0a2fa1c/pepeline-1.0.0-cp310-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:f0f3953183d38a1749a338c96b5aa55c2318b8f07b6e9c4a503265f668b0eedc", size = 2930041, upload-time = "2025-07-17T06:48:23Z" },
-    { url = "https://files.pythonhosted.org/packages/0d/f8/b440f9d5db0df8309eb1a1e54bb6f08544a77fedf571d11c82e203b72740/pepeline-1.0.0-cp310-abi3-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:21d254797d8a897b885d5d5b0eebd50bb1554b324de5722a5b1c6a26ae1b1c39", size = 3281391, upload-time = "2025-07-17T06:48:24.262Z" },
-    { url = "https://files.pythonhosted.org/packages/45/5d/6326ddaf6da8004621c0d1577a8258da6dd75eccdd7632251401d5d39518/pepeline-1.0.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:7d5325e92dc8c2cedd29485e3ef8dec52e7e615b033c6110a75e4013900e96c2", size = 3349604, upload-time = "2025-07-17T06:48:25.502Z" },
-    { url = "https://files.pythonhosted.org/packages/85/49/374c61bb285dcd51f46d00615a6e0a9f4c0500d38dd19ebb7c2c90eaff42/pepeline-1.0.0-cp310-abi3-win32.whl", hash = "sha256:d5d74c02903d999bd7b72a85d11c274d3a23d579a1748a692e7c84c8d59255e6", size = 2818553, upload-time = "2025-07-17T06:48:26.702Z" },
-    { url = "https://files.pythonhosted.org/packages/49/dd/5590d4376c401a69d214365c90034225473cc9e7f9607881404bdf25a85c/pepeline-1.0.0-cp310-abi3-win_amd64.whl", hash = "sha256:5f88b7f73b83e3087a102057b2178ae1e3d5cc89386034333076a2d11b7fa54c", size = 3236960, upload-time = "2025-07-17T06:48:28.128Z" },
+    { url = "https://files.pythonhosted.org/packages/f4/fb/e88bf6149f17f1e17024372323b072f364188a04e64e8e901f5d39fe2b34/pepeline-1.0.2-cp310-abi3-macosx_10_12_x86_64.whl", hash = "sha256:c8c746c34d88c64d585b2b9ab044c03040ef9ed8654395ffd89df62417e1c6a3", size = 3264429, upload-time = "2025-07-25T09:55:08.182Z" },
+    { url = "https://files.pythonhosted.org/packages/0f/d9/4290a94f4122a1ff2e07c0e12ab07dbe10c221a8efabd58430b1233e8ea2/pepeline-1.0.2-cp310-abi3-macosx_11_0_arm64.whl", hash = "sha256:1fc4ebfc520ca5781b55852138357e7b8051a9e54cdaa71d3786f6db15bd4969", size = 2911096, upload-time = "2025-07-25T09:55:09.963Z" },
+    { url = "https://files.pythonhosted.org/packages/5a/d8/d8cf4d663e6d78af17e23ce91d6ddb7babdafe926f7b11914620482639b4/pepeline-1.0.2-cp310-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:10ebb935c8162deb5f13b99a06e6fe726a0750acb7ef753d379ee53667939977", size = 2957648, upload-time = "2025-07-25T09:55:11.227Z" },
+    { url = "https://files.pythonhosted.org/packages/b8/cd/982d3149f59acdac26a90fb45890346034e9d7fd6b658f2d33f8f97b031d/pepeline-1.0.2-cp310-abi3-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:df079f5be8df886cd25ac4f5491ce6d1e2ac805d5c74bc2d915d440214c13429", size = 3311334, upload-time = "2025-07-25T09:55:12.487Z" },
+    { url = "https://files.pythonhosted.org/packages/72/f1/fb75b7e5d00bdd78e1775acc1784fdf9c03093e893c46f1584bf05985dbf/pepeline-1.0.2-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:2394c56edf2b7161bfd63e745a737738eb8469792c18f3bd8181f5168199b350", size = 3388002, upload-time = "2025-07-25T09:55:14.205Z" },
+    { url = "https://files.pythonhosted.org/packages/94/6d/87bcf735dccc755b06cf8df8c26f57d546bb57d7fa9cb838c123dcc82712/pepeline-1.0.2-cp310-abi3-win32.whl", hash = "sha256:ab5c77592e43bfd86c9de77f75310efcacf8fc06d08b7d7fa7eed1ac753bb9b6", size = 2856797, upload-time = "2025-07-25T09:55:15.492Z" },
+    { url = "https://files.pythonhosted.org/packages/e2/2f/22991590ba196b3b64a88fcd34e9779827595e0b3d4a6b19852a68f9a9a5/pepeline-1.0.2-cp310-abi3-win_amd64.whl", hash = "sha256:e7b59e2acaf191ba6c23200727fee0a5c6caa22a55f22933b4986c4aea9c16d2", size = 3291077, upload-time = "2025-07-25T09:55:16.79Z" },
 ]
 
 [[package]]
@@ -826,7 +826,7 @@ wheels = [
 
 [[package]]
 name = "reline"
-version = "1.1.0"
+version = "1.1.2"
 source = { editable = "." }
 dependencies = [
     { name = "moviepy" },
@@ -850,7 +850,7 @@ requires-dist = [
     { name = "moviepy", specifier = "==1.0.2" },
     { name = "opencv-python-headless", specifier = ">=4.11.0.86" },
     { name = "orjson", specifier = ">=3.10.15" },
-    { name = "pepeline", specifier = ">=1.0.0" },
+    { name = "pepeline", specifier = ">=1.0.2" },
     { name = "resr", specifier = ">=1,<2" },
     { name = "resselt", specifier = ">=1,<2" },
     { name = "tqdm", specifier = ">=4.67.1" },
