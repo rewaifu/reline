@@ -6,6 +6,7 @@ from pepeline import DotType
 
 from ._halftone_func import MODE_MAP, Mode
 from reline.static import Node, NodeOptions, ImageFile
+from ..resize.filter_type import FilterType, FILTER_MAP
 
 DOT_TYPE_MAP = {
     'circle': DotType.CIRCLE,
@@ -30,6 +31,8 @@ class HalftoneOptions(NodeOptions):
     angle: Optional[int] | Optional[list[int]] = 0
     dot_type: Optional[TypeDot] | Optional[list[TypeDot]] = 'circle'
     halftone_mode: Optional[Mode] = 'gray'
+    ssaa_scale: Optional[float] = None
+    ssaa_filter: Optional[FilterType] = 'shamming4'
 
 
 class HalftoneNode(Node[HalftoneOptions]):
@@ -42,16 +45,18 @@ class HalftoneNode(Node[HalftoneOptions]):
             self.dot_type = [DOT_TYPE_MAP[options.dot_type]]
         else:
             self.dot_type = [DOT_TYPE_MAP[dot_type] for dot_type in options.dot_type]
+        self.scale = options.ssaa_scale
+        self.ssaa_filter = FILTER_MAP[options.ssaa_filter]
 
     def process(self, files: List[ImageFile]) -> List[ImageFile]:
         for file in files:
-            file.data = self.halftone(file.data.squeeze(), self.dot_size, self.angle, self.dot_type)
+            file.data = self.halftone(file.data.squeeze(), self.dot_size, self.angle, self.dot_type, self.scale, self.ssaa_filter)
         return files
 
     def single_process(self, file: ImageFile) -> ImageFile:
-        file.data = self.halftone(file.data.squeeze(), self.dot_size, self.angle, self.dot_type)
+        file.data = self.halftone(file.data.squeeze(), self.dot_size, self.angle, self.dot_type, self.scale, self.ssaa_filter)
         return file
 
     def video_process(self, file: np.ndarray) -> np.ndarray:
-        file = self.halftone(file.squeeze(), self.dot_size, self.angle, self.dot_type)
+        file = self.halftone(file.squeeze(), self.dot_size, self.angle, self.dot_type, self.scale, self.ssaa_filter)
         return file
