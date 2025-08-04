@@ -6,7 +6,7 @@ from pepeline import cvt_color, CVTColor
 from ._sharp_class import Canny, DiapasonBlack, DiapasonWhite, ColorLevels
 from reline.static import Node, NodeOptions, ImageFile
 
-CannyType = Literal['invert', 'normal']
+CannyType = Literal['invert', 'normal', 'unsharp']
 
 
 @dataclass(frozen=True)
