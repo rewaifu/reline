@@ -54,7 +54,7 @@ class UpscaleNode(Node[UpscaleOptions]):
                 img = cvt_color(img, CVTColor.Gray2RGB)
         elif self.model.parameters_info.in_channels == 1:
             if len(img_shape) == 3:
-                img = cvt_color(img, CVTColor.RGB2Gray_2020)
+                img = cvt_color(img.squeeze(), CVTColor.RGB2Gray_2020)
         else:
             logging.error('model format is not currently supported')
         return img
