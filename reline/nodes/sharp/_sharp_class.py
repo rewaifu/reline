@@ -1,21 +1,24 @@
 import cv2 as cv
 import numpy as np
 
-# from chainner_ext import binary_threshold
 from pepeline import color_levels
 
 
 class Canny:
     def __init__(self, canny_type):
-        if canny_type == 'invert':
-            self.canny_value = 1.0
-        else:
-            self.canny_value = 0.0
+        self.canny_type = canny_type
 
     def run(self, img_float: np.ndarray) -> np.ndarray:
         image = (img_float * 255).astype(np.uint8)
         edges = np.clip(255 - cv.Canny(image, 750, 800, apertureSize=3, L2gradient=False), 0, 1)
-        return np.where(edges, img_float, self.canny_value)
+        if self.canny_type == 'unsharp':
+            kernel = np.ones((3, 3), dtype=np.uint8)
+            edges = cv.dilate(edges.astype(np.float32), kernel, iterations=1)
+            blurred = cv.GaussianBlur(img_float, (0, 0), sigmaX=1, sigmaY=1, borderType=cv.BORDER_REFLECT)
+            img_float = (cv.addWeighted(img_float, 4 + 1, blurred, -4, 0) * edges + img_float * (1 - edges)).clip(0, 1)
+            return img_float
+        else:
+            return np.where(edges, img_float, 1.0 if self.canny_type == 'invert' else 0.0)
 
 
 class DiapasonWhite:
