@@ -5,7 +5,7 @@ import numpy as np
 import torch.cuda
 from resselt import load_from_file
 from resr.tiling import MaxTileSize, ExactTileSize, NoTiling, process_tiles
-from pepeline import cvt_color, CvtType
+from pepeline import cvt_color, CVTColor
 from reline.static import Node, NodeOptions, ImageFile
 import logging
 
@@ -51,10 +51,10 @@ class UpscaleNode(Node[UpscaleOptions]):
         img = img.squeeze()
         if self.model.parameters_info.in_channels == 3:
             if len(img_shape) == 2:
-                img = cvt_color(img, CvtType.GRAY2RGB)
+                img = cvt_color(img, CVTColor.Gray2RGB)
         elif self.model.parameters_info.in_channels == 1:
             if len(img_shape) == 3:
-                img = cvt_color(img, CvtType.RGB2GrayBt2020)
+                img = cvt_color(img, CVTColor.RGB2Gray_2020)
         else:
             logging.error('model format is not currently supported')
         return img
@@ -76,18 +76,38 @@ class UpscaleNode(Node[UpscaleOptions]):
         for file in files:
             img = self._img_ch_to_model_ch(file.data)
             file.data = process_tiles(
-                img, tiler=self.tiler, model=self.model, device=self.device, dtype=self.dtype, scale=self.model.parameters_info.upscale
+                img,
+                tiler=self.tiler,
+                model=self.model,
+                device=self.device,
+                dtype=self.dtype,
+                scale=self.model.parameters_info.upscale,
+                channels=self.model.parameters_info.in_channels,
             )
         return files
 
     def single_process(self, file: ImageFile) -> ImageFile:
         img = self._img_ch_to_model_ch(file.data)
         file.data = process_tiles(
-            img, tiler=self.tiler, model=self.model, device=self.device, dtype=self.dtype, scale=self.model.parameters_info.upscale
+            img,
+            tiler=self.tiler,
+            model=self.model,
+            device=self.device,
+            dtype=self.dtype,
+            scale=self.model.parameters_info.upscale,
+            channels=self.model.parameters_info.in_channels,
         )
         return file
 
     def video_process(self, file: np.ndarray) -> np.ndarray:
         img = self._img_ch_to_model_ch(file)
-        file = process_tiles(img, tiler=self.tiler, model=self.model, device=self.device, dtype=self.dtype, scale=self.model.parameters_info.upscale)
+        file = process_tiles(
+            img,
+            tiler=self.tiler,
+            model=self.model,
+            device=self.device,
+            dtype=self.dtype,
+            scale=self.model.parameters_info.upscale,
+            channels=self.model.parameters_info.in_channels,
+        )
         return file

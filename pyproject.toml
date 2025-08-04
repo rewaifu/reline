@@ -1,15 +1,14 @@
 [project]
 name = "reline"
-version = "1.0.1"
+version = "1.1.4"
 requires-python = ">=3.10"
 readme = "README.md"
 license = "MIT"
 dependencies = [
-    "chainner-ext>=0.3.10",
     "moviepy==1.0.2",
     "opencv-python-headless>=4.11.0.86",
     "orjson>=3.10.15",
-    "pepeline>=0.3.14",
+    "pepeline>=1.0.2",
     "resselt>=1,<2",
     "resr>=1,<2",
     "tqdm>=4.67.1",
@@ -47,3 +46,8 @@ ignore = ['ANN', 'COM812', 'CPY', 'D', "DOC", 'Q000', 'Q003', 'S101', 'PLR', 'FB
 
 [tool.ruff.lint.isort]
 split-on-trailing-comma = false
+
+[tool.uv.workspace]
+members = [
+    "venv",
+]

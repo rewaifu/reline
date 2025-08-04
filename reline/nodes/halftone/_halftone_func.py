@@ -1,50 +1,67 @@
 from typing import Literal
 
 import numpy as np
-from pepeline import screentone, cvt_color, CvtType, TypeDot
+from pepeline import screentone, cvt_color, CVTColor, DotType, halftone, ResizesAlg
 import cv2 as cv
 
 
-def rgb_halftone(img: np.ndarray, dot_size: list[int], angle: list[int], dot_type: list[TypeDot]) -> np.ndarray:
+def rgb_halftone(
+    img: np.ndarray, dot_size: list[int], angle: list[int], dot_type: list[DotType], scale: float | None, ssaa_filter: ResizesAlg
+) -> np.ndarray:
     dot_size_len = len(dot_size)
     angle_len = len(angle)
     dot_type_len = len(dot_type)
     if img.ndim == 2:
-        img = cvt_color(img, CvtType.GRAY2RGB)
-    img[..., 0] = screentone(img[..., 0], dot_size[0 % dot_size_len], angle[0 % angle_len], dot_type[0 % dot_type_len])
-    img[..., 1] = screentone(img[..., 1], dot_size[1 % dot_size_len], angle[1 % angle_len], dot_type[1 % dot_type_len])
-    img[..., 2] = screentone(img[..., 2], dot_size[2 % dot_size_len], angle[2 % angle_len], dot_type[2 % dot_type_len])
+        img = cvt_color(img, CVTColor.Gray2RGB)
+    img = halftone(
+        img,
+        [dot_size[index % dot_size_len] for index in range(3)],
+        [angle[index % angle_len] for index in range(3)],
+        [dot_type[index % dot_type_len] for index in range(3)],
+        scale,
+        ssaa_filter,
+    )
     return img
 
 
-def cmyk_halftone(img: np.ndarray, dot_size: list[int], angle: list[int], dot_type: list[TypeDot]) -> np.ndarray:
+def cmyk_halftone(
+    img: np.ndarray, dot_size: list[int], angle: list[int], dot_type: list[DotType], scale: float | None, ssaa_filter: ResizesAlg
+) -> np.ndarray:
     dot_size_len = len(dot_size)
     angle_len = len(angle)
     dot_type_len = len(dot_type)
     if img.ndim == 2:
-        img = cvt_color(img, CvtType.GRAY2RGB)
-    img = cvt_color(img, CvtType.RGB2CMYK)
-    img[..., 0] = screentone(img[..., 0], dot_size[0 % dot_size_len], angle[0 % angle_len], dot_type[0 % dot_type_len])
-    img[..., 1] = screentone(img[..., 1], dot_size[1 % dot_size_len], angle[1 % angle_len], dot_type[1 % dot_type_len])
-    img[..., 2] = screentone(img[..., 2], dot_size[2 % dot_size_len], angle[2 % angle_len], dot_type[2 % dot_type_len])
-    img[..., 3] = screentone(img[..., 3], dot_size[3 % dot_size_len], angle[3 % angle_len], dot_type[3 % dot_type_len])
-    img = cvt_color(img, CvtType.CMYK2RGB)
+        img = cvt_color(img, CVTColor.Gray2RGB)
+    img = cvt_color(img, CVTColor.RGB2CMYK)
+    img = halftone(
+        img,
+        [dot_size[index % dot_size_len] for index in range(4)],
+        [angle[index % angle_len] for index in range(4)],
+        [dot_type[index % dot_type_len] for index in range(4)],
+        scale,
+        ssaa_filter,
+    )
+    img = cvt_color(img, CVTColor.CMYK2RGB)
     return img
 
 
-def hsv_halftone(img: np.ndarray, dot_size: list[int], angle: list[int], dot_type: list[TypeDot]) -> np.ndarray:
+def hsv_halftone(
+    img: np.ndarray, dot_size: list[int], angle: list[int], dot_type: list[DotType], scale: float | None, ssaa_filter: ResizesAlg
+) -> np.ndarray:
     if img.ndim == 2:
         img = cv.cvtColor(img, cv.COLOR_GRAY2RGB)
     img = cv.cvtColor(img, cv.COLOR_RGB2HSV)
-    img[..., 2] = screentone(img[..., 2], dot_size[0], angle[0], dot_type[0])
+    img[..., 2] = screentone(img[..., 2], dot_size[0], angle[0], dot_type[0], scale, ssaa_filter)
     img = cv.cvtColor(img, cv.COLOR_HSV2RGB)
     return img
 
 
-def gray_halftone(img: np.ndarray, dot_size: list[int], angle: list[int], dot_type: list[TypeDot]) -> np.ndarray:
+def gray_halftone(
+    img: np.ndarray, dot_size: list[int], angle: list[int], dot_type: list[DotType], scale: float | None, ssaa_filter: ResizesAlg
+) -> np.ndarray:
     if img.ndim == 3:
-        img = cvt_color(img, CvtType.RGB2GrayBt2020)
-    img = screentone(img, dot_size[0], angle[0], dot_type[0])
+        img = cvt_color(img, CVTColor.RGB2Gray_2020)
+    img = screentone(img, dot_size[0], angle[0], dot_type[0], scale, ssaa_filter)
     return img
 
 
