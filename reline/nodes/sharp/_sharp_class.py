@@ -12,10 +12,16 @@ class Canny:
         image = (img_float * 255).astype(np.uint8)
         edges = np.clip(255 - cv.Canny(image, 750, 800, apertureSize=3, L2gradient=False), 0, 1)
         if self.canny_type == 'unsharp':
-            kernel = np.ones((3, 3), dtype=np.uint8)
-            edges = cv.dilate(edges.astype(np.float32), kernel, iterations=1)
-            blurred = cv.GaussianBlur(img_float, (0, 0), sigmaX=1, sigmaY=1, borderType=cv.BORDER_REFLECT)
-            img_float = (cv.addWeighted(img_float, 4 + 1, blurred, -4, 0) * edges + img_float * (1 - edges)).clip(0, 1)
+            kernel = np.ones((5, 5), dtype=np.uint8)
+            edges = cv.dilate(edges, kernel, iterations=1)
+            blurred = cv.GaussianBlur(img_float, (0, 0), sigmaX=0.5, sigmaY=0.5, borderType=cv.BORDER_REFLECT)
+            white = ((img_float * edges) > 0.9882352941176471).astype(np.float32)
+            black = (img_float < 0.011764705882352941).astype(np.float32) * edges
+            black = cv.dilate(black, kernel, iterations=1)
+            white = cv.dilate(white, kernel, iterations=1)
+            w_b = ((white + black) - 1).clip(0, 1)
+            img_float = (cv.addWeighted(img_float, 11, blurred, -10, 0) * w_b + img_float * (1 - w_b)).clip(0, 1)
+
             return img_float
         else:
             return np.where(edges, img_float, 1.0 if self.canny_type == 'invert' else 0.0)
