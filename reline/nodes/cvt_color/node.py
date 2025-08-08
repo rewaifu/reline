@@ -26,6 +26,7 @@ class CvtColorNode(Node[CvtColorOptions]):
         self.cvt_type = CvtDict[options.cvt_type]
 
     def __cvt_logic(self, img: np.ndarray) -> np.ndarray:
+        img = img.squeeze()
         if self.cvt_type in [CVTColor.RGB2Gray_2020, CVTColor.RGB2Gray_709, CVTColor.RGB2Gray_601] and img.ndim == 3:
             return cvt_color(img, self.cvt_type)
         elif self.cvt_type in [CVTColor.Gray2RGB] and img.ndim == 2:
