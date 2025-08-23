@@ -61,12 +61,7 @@ def gray_halftone(
 ) -> np.ndarray:
     if img.ndim == 3:
         img = cvt_color(img, CVTColor.RGB2Gray_2020)
-    if scale:
-        black_mask = 1 - (img == 0).astype(np.float32)
-        white_mask = (img == 1).astype(np.float32)
-        return (screentone(img, dot_size[0], angle[0], dot_type[0], scale, ssaa_filter) + white_mask) * black_mask
-    else:
-        return screentone(img, dot_size[0], angle[0], dot_type[0], scale, ssaa_filter)
+    return screentone(img, dot_size[0], angle[0], dot_type[0], scale, ssaa_filter)
 
 
 MODE_MAP = {'rgb': rgb_halftone, 'gray': gray_halftone, 'hsv': hsv_halftone, 'cmyk': cmyk_halftone}
