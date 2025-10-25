@@ -22,6 +22,7 @@ def empty_cuda_cache():
 class UpscaleOptions(NodeOptions):
     model: str
     tiler: Tiler
+    target_scale: Optional[int]=None
     dtype: Optional[DType] = 'F32'
     exact_tiler_size: Optional[int] = 256
     allow_cpu_upscale: Optional[bool] = False
@@ -33,7 +34,7 @@ class UpscaleNode(Node[UpscaleOptions]):
 
         if not torch.cuda.is_available() and not options.allow_cpu_upscale:
             raise BaseException('CUDA is not available. If you want scale with CPU use `allow_cpu_upscale` option')
-
+        self.target_scale = options.target_scale
         self.model = load_from_file(options.model)
         self.tiler = self._create_tiler()
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -81,7 +82,8 @@ class UpscaleNode(Node[UpscaleOptions]):
                 model=self.model,
                 device=self.device,
                 dtype=self.dtype,
-                scale=self.model.parameters_info.upscale,
+                model_scale=self.model.parameters_info.upscale,
+                target_scale=self.target_scale,
                 channels=self.model.parameters_info.in_channels,
             )
         return files
