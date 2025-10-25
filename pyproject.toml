@@ -1,6 +1,6 @@
 [project]
 name = "reline"
-version = "1.3.0"
+version = "1.3.1"
 requires-python = ">=3.10"
 readme = "README.md"
 license = "MIT"
@@ -8,9 +8,9 @@ dependencies = [
     "moviepy==1.0.2",
     "opencv-python-headless>=4.11.0.86",
     "orjson>=3.10.15",
-    "pepeline>=1.0.2",
+    "pepeline>=1.1.0",
     "resselt>=1,<2",
-    "resr>=1,<2",
+    "resr>=1.1.0,<2",
     "tqdm>=4.67.1",
     "typer>=0.15.4",
 ]
