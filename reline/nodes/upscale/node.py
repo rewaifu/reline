@@ -96,7 +96,8 @@ class UpscaleNode(Node[UpscaleOptions]):
             model=self.model,
             device=self.device,
             dtype=self.dtype,
-            scale=self.model.parameters_info.upscale,
+            model_scale=self.model.parameters_info.upscale,
+            target_scale=self.target_scale,
             channels=self.model.parameters_info.in_channels,
         )
         return file
@@ -109,7 +110,8 @@ class UpscaleNode(Node[UpscaleOptions]):
             model=self.model,
             device=self.device,
             dtype=self.dtype,
-            scale=self.model.parameters_info.upscale,
+            model_scale=self.model.parameters_info.upscale,
+            target_scale=self.target_scale,
             channels=self.model.parameters_info.in_channels,
         )
         return file
