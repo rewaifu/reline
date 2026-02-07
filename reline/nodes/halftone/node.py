@@ -33,6 +33,7 @@ class HalftoneOptions(NodeOptions):
     halftone_mode: Optional[Mode] = 'gray'
     ssaa_scale: Optional[float] = None
     ssaa_filter: Optional[FilterType] = 'shamming4'
+    disable_auto_dot: Optional[bool] = False
 
 
 class HalftoneNode(Node[HalftoneOptions]):
@@ -47,16 +48,17 @@ class HalftoneNode(Node[HalftoneOptions]):
             self.dot_type = [DOT_TYPE_MAP[dot_type] for dot_type in options.dot_type]
         self.scale = options.ssaa_scale
         self.ssaa_filter = FILTER_MAP[options.ssaa_filter]
+        self.disable_auto_dot = options.disable_auto_dot
 
     def process(self, files: List[ImageFile]) -> List[ImageFile]:
         for file in files:
-            file.data = self.halftone(file.data.squeeze(), self.dot_size, self.angle, self.dot_type, self.scale, self.ssaa_filter)
+            file.data = self.halftone(file.data.squeeze(), self.dot_size, self.angle, self.dot_type, self.scale, self.ssaa_filter, self.disable_auto_dot)
         return files
 
     def single_process(self, file: ImageFile) -> ImageFile:
-        file.data = self.halftone(file.data.squeeze(), self.dot_size, self.angle, self.dot_type, self.scale, self.ssaa_filter)
+        file.data = self.halftone(file.data.squeeze(), self.dot_size, self.angle, self.dot_type, self.scale, self.ssaa_filter, self.disable_auto_dot)
         return file
 
     def video_process(self, file: np.ndarray) -> np.ndarray:
-        file = self.halftone(file.squeeze(), self.dot_size, self.angle, self.dot_type, self.scale, self.ssaa_filter)
+        file = self.halftone(file.squeeze(), self.dot_size, self.angle, self.dot_type, self.scale, self.ssaa_filter, self.disable_auto_dot)
         return file
