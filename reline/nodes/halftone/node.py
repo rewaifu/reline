@@ -52,7 +52,9 @@ class HalftoneNode(Node[HalftoneOptions]):
 
     def process(self, files: List[ImageFile]) -> List[ImageFile]:
         for file in files:
-            file.data = self.halftone(file.data.squeeze(), self.dot_size, self.angle, self.dot_type, self.scale, self.ssaa_filter, self.disable_auto_dot)
+            file.data = self.halftone(
+                file.data.squeeze(), self.dot_size, self.angle, self.dot_type, self.scale, self.ssaa_filter, self.disable_auto_dot
+            )
         return files
 
     def single_process(self, file: ImageFile) -> ImageFile:

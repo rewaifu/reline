@@ -22,7 +22,7 @@ def empty_cuda_cache():
 class UpscaleOptions(NodeOptions):
     model: str
     tiler: Tiler
-    target_scale: Optional[int]=None
+    target_scale: Optional[int] = None
     dtype: Optional[DType] = 'F32'
     exact_tiler_size: Optional[int] = 256
     allow_cpu_upscale: Optional[bool] = False

@@ -6,7 +6,13 @@ import cv2 as cv
 
 
 def rgb_halftone(
-    img: np.ndarray, dot_size: list[int], angle: list[int], dot_type: list[DotType], scale: float | None, ssaa_filter: ResizesAlg, disable_auto_dot: bool | None
+    img: np.ndarray,
+    dot_size: list[int],
+    angle: list[int],
+    dot_type: list[DotType],
+    scale: float | None,
+    ssaa_filter: ResizesAlg,
+    disable_auto_dot: bool | None,
 ) -> np.ndarray:
     dot_size_len = len(dot_size)
     angle_len = len(angle)
@@ -26,7 +32,13 @@ def rgb_halftone(
 
 
 def cmyk_halftone(
-    img: np.ndarray, dot_size: list[int], angle: list[int], dot_type: list[DotType], scale: float | None, ssaa_filter: ResizesAlg, disable_auto_dot: bool | None
+    img: np.ndarray,
+    dot_size: list[int],
+    angle: list[int],
+    dot_type: list[DotType],
+    scale: float | None,
+    ssaa_filter: ResizesAlg,
+    disable_auto_dot: bool | None,
 ) -> np.ndarray:
     dot_size_len = len(dot_size)
     angle_len = len(angle)
@@ -48,7 +60,13 @@ def cmyk_halftone(
 
 
 def hsv_halftone(
-    img: np.ndarray, dot_size: list[int], angle: list[int], dot_type: list[DotType], scale: float | None, ssaa_filter: ResizesAlg, disable_auto_dot: bool | None
+    img: np.ndarray,
+    dot_size: list[int],
+    angle: list[int],
+    dot_type: list[DotType],
+    scale: float | None,
+    ssaa_filter: ResizesAlg,
+    disable_auto_dot: bool | None,
 ) -> np.ndarray:
     if img.ndim == 2:
         img = cv.cvtColor(img, cv.COLOR_GRAY2RGB)
@@ -59,7 +77,13 @@ def hsv_halftone(
 
 
 def gray_halftone(
-    img: np.ndarray, dot_size: list[int], angle: list[int], dot_type: list[DotType], scale: float | None, ssaa_filter: ResizesAlg, disable_auto_dot: bool | None
+    img: np.ndarray,
+    dot_size: list[int],
+    angle: list[int],
+    dot_type: list[DotType],
+    scale: float | None,
+    ssaa_filter: ResizesAlg,
+    disable_auto_dot: bool | None,
 ) -> np.ndarray:
     if img.ndim == 3:
         img = cvt_color(img, CVTColor.RGB2Gray_2020)

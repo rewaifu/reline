@@ -1,12 +1,8 @@
 from __future__ import annotations
 
-import os
 from typing import List, Dict
 
-import cv2
-import numpy as np
 from tqdm import tqdm
-from moviepy.editor import VideoFileClip
 
 from ..nodes import INTERNAL_REGISTRY
 from ..static import Node
@@ -49,22 +45,6 @@ class Pipeline:
             else:
                 nodes_index += 1
         del data
-
-    def process_frame(self, frame):
-        frame = frame.astype(np.float32) / 255
-        for node in self.nodes:
-            frame = node.video_process(frame)
-        if frame.ndim == 2:
-            frame = cv2.cvtColor(frame, cv2.COLOR_GRAY2RGB)
-        return np.clip(frame * 255, 0, 255).astype(np.uint8)
-
-    def process_video(self, in_folder, out_folder, codec):
-        video = VideoFileClip(in_folder).to_RGB()
-        processed_video = video.fl_image(self.process_frame)
-        audio = video.audio
-        final_video = processed_video.set_audio(audio)
-        os.makedirs(os.path.dirname(out_folder), exist_ok=True)
-        final_video.write_videofile(out_folder, codec=codec)
 
     @classmethod
     def from_json(cls, data: Dict) -> Pipeline:
