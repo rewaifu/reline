@@ -1,6 +1,6 @@
 [project]
 name = "reline"
-version = "1.4.3"
+version = "1.4.4"
 requires-python = ">=3.10"
 readme = "README.md"
 license = "MIT"
@@ -12,7 +12,7 @@ dependencies = [
     "resr>=1.1.0,<2",
     "tqdm>=4.67.1",
     "typer>=0.15.4",
-    "pepedpid>=0.1.1",
+    "pepedpid>=0.1.2",
 ]
 
 [dependency-groups]

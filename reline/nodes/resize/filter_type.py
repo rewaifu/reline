@@ -44,7 +44,7 @@ FilterType = Literal[
     'box',
     'sbox4',
     'sbox8',
-    'ibox8',
+    'ibox',
     'linear',
     'slinear4',
     'slinear8',
