@@ -6,7 +6,7 @@ from pepeline import DotType
 
 from ._halftone_func import MODE_MAP, Mode
 from reline.static import Node, NodeOptions, ImageFile
-from ..resize.filter_type import FilterType, FILTER_MAP
+from .filter_type import FilterType, FILTER_MAP
 
 DOT_TYPE_MAP = {
     'circle': DotType.CIRCLE,

@@ -1,0 +1,53 @@
+from typing import Literal
+
+from pepeline import ResizesAlg, ResizesFilter
+
+FILTER_MAP = {
+    'nearest': ResizesAlg.Nearest(),
+    'box': ResizesAlg.Conv(ResizesFilter.Box),
+    'sbox4': ResizesAlg.SuperSampling(ResizesFilter.Box, 4),
+    'sbox8': ResizesAlg.SuperSampling(ResizesFilter.Box, 8),
+    'linear': ResizesAlg.Conv(ResizesFilter.Bilinear),
+    'slinear4': ResizesAlg.SuperSampling(ResizesFilter.Bilinear, 4),
+    'slinear8': ResizesAlg.SuperSampling(ResizesFilter.Bilinear, 8),
+    'hamming': ResizesAlg.Conv(ResizesFilter.Hamming),
+    'shamming4': ResizesAlg.SuperSampling(ResizesFilter.Hamming, 4),
+    'shamming8': ResizesAlg.SuperSampling(ResizesFilter.Hamming, 8),
+    'catmullrom': ResizesAlg.Conv(ResizesFilter.CatmullRom),
+    'scatmullrom4': ResizesAlg.SuperSampling(ResizesFilter.CatmullRom, 4),
+    'scatmullrom8': ResizesAlg.SuperSampling(ResizesFilter.CatmullRom, 8),
+    'mitchell': ResizesAlg.Conv(ResizesFilter.Mitchell),
+    'smitchell4': ResizesAlg.SuperSampling(ResizesFilter.Mitchell, 4),
+    'smitchell8': ResizesAlg.SuperSampling(ResizesFilter.Mitchell, 8),
+    'lanczos': ResizesAlg.Conv(ResizesFilter.Lanczos3),
+    'slanczos4': ResizesAlg.SuperSampling(ResizesFilter.Lanczos3, 4),
+    'slanczos8': ResizesAlg.SuperSampling(ResizesFilter.Lanczos3, 8),
+    'gauss': ResizesAlg.Conv(ResizesFilter.Gaussian),
+    'sgauss4': ResizesAlg.SuperSampling(ResizesFilter.Gaussian, 4),
+    'sgauss8': ResizesAlg.SuperSampling(ResizesFilter.Gaussian, 8),
+}
+
+FilterType = Literal[
+    'nearest',
+    'box',
+    'sbox4',
+    'sbox8',
+    'linear',
+    'slinear4',
+    'slinear8',
+    'hamming',
+    'shamming4',
+    'shamming8',
+    'catmullrom',
+    'scatmullrom4',
+    'scatmullrom8',
+    'mitchell',
+    'smitchell4',
+    'smitchell8',
+    'lanczos',
+    'slanczos4',
+    'slanczos8',
+    'gauss',
+    'sgauss4',
+    'sgauss8',
+]
