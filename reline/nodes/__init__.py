@@ -1,3 +1,4 @@
+from reline.nodes.hyst_norm import HystNormOptions
 from .file_reader import FileReaderNode, FileReaderOptions
 from .file_writer import FileWriterNode, FileWriterOptions
 from .folder_reader import FolderReaderNode, FolderReaderOptions
@@ -22,6 +23,7 @@ INTERNAL_REGISTRY = (
     .set('halftone', HalftoneNode, HalftoneOptions)
     .set('sharp', SharpNode, SharpOptions)
     .set('cvt_color', CvtColorNode, CvtColorOptions)
+    .set('hyst_norm', HalftoneNode, HystNormOptions)
 )
 
 __all__ = [
@@ -46,5 +48,7 @@ __all__ = [
     'SharpOptions',
     'CvtColorNode',
     'CvtColorOptions',
+    'HystNormOptions',
+    'HalftoneNode',
     'INTERNAL_REGISTRY',
 ]
