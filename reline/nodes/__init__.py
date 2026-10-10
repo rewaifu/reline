@@ -1,3 +1,4 @@
+from .noise import NoiseNode, NoiseOptions
 from .hyst_norm import HystNormNode, HystNormOptions
 from .file_reader import FileReaderNode, FileReaderOptions
 from .file_writer import FileWriterNode, FileWriterOptions
@@ -24,6 +25,7 @@ INTERNAL_REGISTRY = (
     .set('sharp', SharpNode, SharpOptions)
     .set('cvt_color', CvtColorNode, CvtColorOptions)
     .set('hyst_norm', HystNormNode, HystNormOptions)
+    .set('noise',NoiseNode, NoiseOptions)
 )
 
 __all__ = [
@@ -50,5 +52,7 @@ __all__ = [
     'CvtColorOptions',
     'HystNormNode',
     'HystNormOptions',
+    'NoiseNode',
+    'NoiseOptions',
     'INTERNAL_REGISTRY',
 ]
